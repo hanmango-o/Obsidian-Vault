@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Templates/Cornell Note.md",
+                "file": "Study/Java/무제.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Cornell Note"
+              "title": "무제"
             }
           }
         ]
@@ -195,8 +195,9 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Flutter/ㅇ.md",
     "Templates/Cornell Note.md",
+    "Study/Java/무제.md",
+    "Study/Flutter/ㅇ.md",
     "Study/Java/Test.md",
     "Study/Kotlin/무제 4.md",
     "Study/Kotlin/무제 3.md",
@@ -207,7 +208,6 @@
     "Study/Kotlin/무제 1.md",
     "Study/Java/무제 4.md",
     "Study/Java/무제 1.md",
-    "Study/Java/무제.md",
     "Study/Java/무제 3.md",
     "Templates/Cornell/무제.md",
     "Templates/Cornell/Cornell Note - Make a Cornell Note.md",
