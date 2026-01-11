@@ -31,7 +31,7 @@ The Cornell method offers a specific layout for each page of notes. The note is 
 
   
 
-<aside>Note-taking Process</aside>
+<aside>Note-tㅇㅇㅇㅇㅇㅇaking Process</aside>
 
   
 
@@ -67,6 +67,6 @@ The Cornell method offers a specific layout for each page of notes. The note is 
 
   
 
-<summary>Write a concise summary here</summary>
+<summary>Write a cㅇㅇㅇoncise summary here</summary>
 
 The Cornell Note-taking System is effective because it encourages active engagement during the note-taking process and provides a structured way to review and study the material later. It is widely used by students, professionals, and anyone looking to improve their note-taking and learning efficiency.
