@@ -1,1 +1,6 @@
-{}
+{
+  "enabledCssSnippets": [
+    "cornell",
+    "zcornell-hacks"
+  ]
+}
