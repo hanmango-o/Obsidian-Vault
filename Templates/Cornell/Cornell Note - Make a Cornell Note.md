@@ -1,4 +1,4 @@
->[!cue] null<%*
+<%*
 /*
 Author: TfTHacker - more info https://tfthacker.com/
 Date: 2023-12-06
