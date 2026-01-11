@@ -1,28 +1,212 @@
-.markdown-preview-view.cornell-note .callout[data-callout="info"] {
-    float: right;
-    padding: 8px;
-    position: absolute;
-    left: 4%;
-    width: 20%;
-    max-width: 300px;
-    min-width: 150px;
-    max-height: 200px;
-    color: white;
+:root {
+    --cue-line: 2px solid #414061;
 }
 
-.markdown-preview-view.cornell-note .callout[data-callout="info"] .callout-icon {
-    display: none;
-}
-
-.markdown-preview-view.cornell-note .markdown-preview-sizer,
-.markdown-source-view.cornell-note .markdown-preview-sizer {
+.markdown-preview-view .markdown-preview-sizer,
+.markdown-source-view .markdown-preview-sizer {
     max-width: var(--file-line-width);
     margin-left: auto;
     margin-right: auto;
-    margin-inline: auto;
-    width: 100%;
+    margin-inline: 150px;
+    width: 100%;   
 }
 
-.markdown-preview-view.cornell-note .callout[data-callout="summary"] {
-    margin-top: 100px;
+.markdown-preview-view .markdown-preview-sizer > div ,
+.markdown-source-view .markdown-preview-sizer > div {
+    max-width: var(--max-width);
+    width: var(--line-width);
+    margin-inline: var(--content-margin)!important;
+}
+
+/*cue section line/border thing*/
+.markdown-preview-view .markdown-preview-sizer,
+.markdown-source-view .markdown-preview-sizer {
+    border-left: var(--cue-line);
+    padding-left: 0px;
+    padding-right: 0px;
+	padding-bottom: 0 !important;
+	margin-bottom: 517px;
+}
+
+
+
+
+
+/* aside html tag no use anymore
+.markdown-preview-view aside:first-line, 
+.markdown-source-view aside:first-line {
+    font-weight: 700;
+}
+.markdown-preview-view aside, 
+.markdown-source-view aside {
+    font-style: italic;
+    font-family: var(--font-text);
+    font-size: var(--font-adaptive-normal);
+    font-weight: var(--normal-weight);
+    line-height: var(--line-height);
+    padding: 0px 8px 0px 0px;
+    margin-right: 10px;
+    position: absolute;
+    left: 15px;
+    max-width: 145px;
+} 
+*/
+
+/*
+.markdown-preview-view div.cues-header, 
+.markdown-source-view div.cues-header {
+    /* Keep sync with "h1, .markdown-rendered h1" selector 
+    position: absolute;
+    max-width: 145px;
+    width: 145px;
+    left: 15px;
+    top: 20;
+    padding: 0px 8px 0px 0px;
+    letter-spacing: -0.015em;
+    line-height: var(--h1-line-height);
+    color: var(--h1-color);
+    font-family: var(--h1-font);
+    font-size: var(--h1-size);
+    font-style: var(--h1-style);
+    font-variant: var(--h1-variant);
+    font-weight: var(--h1-weight);
+}*/
+
+
+
+/*plain text cue HEADER callout*/
+/*plain text cue callout*/
+.callout[data-callout="cueheader"],
+.callout[data-callout="cue"] {
+    border: none; /* Removes the callout box */
+    background-color: transparent;
+    width: 30%;
+}
+
+
+.callout:is([data-callout="cue"]) .callout-icon,
+.callout:is([data-callout="cueheader"]) .callout-title,
+.callout:is([data-callout="cueheader"]) .callout-icon {
+    display: none;
+}
+.markdown-source-view .callout[data-callout="cueheader"],
+.markdown-preview-view .callout[data-callout="cueheader"] {
+    /* Keep sync with "h1, .markdown-rendered h1" selector */
+    position: absolute;
+    max-width: 145px;
+    width: 145px;
+    left: 15px;
+    top: 20;
+    padding: 0px 8px 0px 0px;
+    letter-spacing: -0.015em;
+    line-height: var(--h1-line-height);
+    color: var(--h1-color);
+    font-family: var(--h1-font);
+    font-size: var(--h1-size);
+    font-style: var(--h1-style);
+    font-variant: var(--h1-variant);
+    font-weight: var(--h1-weight);
+}
+
+.callout:is([data-callout="cue"]) .callout-title {
+    font-style: italic;
+    font-family: var(--font-text);
+    font-size: var(--font-adaptive-normal);
+    font-weight: 700;
+    color: var(--callout-color);
+    position: absolute;
+}
+
+
+/*better source view*/
+.markdown-source-view .callout[data-callout="cue"],
+.markdown-preview-view .callout[data-callout="cue"] {
+    font-style: italic;
+    font-family: var(--font-text);
+    font-size: var(--font-adaptive-normal);
+    font-weight: var(--normal-weight);
+    line-height: var(--line-height);
+    padding: 0px 8px 0px 0px;
+    margin-right: 10px;
+    position: absolute;
+    left: 15px;
+    max-width: 145px;
+}
+
+.markdown-source-view .callout[data-callout="cueheader"],
+.markdown-source-view .callout[data-callout="cue"] {
+    margin: auto !important;
+    position: relative !important;
+    max-width: calc(100% - 16px) !important;
+    overflow: auto;
+    padding: 10px !important; 
+    display: block !important; 
+    opacity: 0.75 !important; 
+
+    float: left !important;
+    margin-left: 2.5%!important;
+    margin-right: 0px !important;
+    left: 0px !important;
+}
+
+
+
+
+/*cue callout metadata*/
+.callout[data-callout-metadata*="cue"] {
+    --cue-width: 30%;
+    /*only 30 percent optimal side part width*/
+    --cue-offset: 16px;
+    position: absolute;
+}
+  
+:is(.markdown-source-view .cm-callout, div:not([class])):has(> .callout[data-callout-metadata*="cue"]) {
+    position: relative;
+    overflow: visible;
+}
+  
+.callout[data-callout-metadata*="cue"] {
+    float: left;
+    margin: unset;
+    margin-right: 8px;
+
+    left: calc(-1 * (var(--cue-width) + var(--cue-offset)));
+    right: calc(100% + var(--cue-offset));
+} 
+  
+  
+
+/* better markdown display */
+.markdown-source-view .callout[data-callout-metadata*="cue"] {
+    margin: auto !important;
+    position: relative;
+    max-width: calc(100% - var(--cue-offset));
+    overflow: auto;
+    padding: 10px !important; 
+    display: block !important; 
+    opacity: 0.5 !important; 
+
+    float: left !important;
+    margin-left: 35%!important;
+
+    font-style: italic;
+    font-family: var(--font-text);
+    font-size: var(--font-adaptive-normal);
+    font-weight: var(--normal-weight);
+    line-height: var(--line-height);
+}
+
+
+
+
+
+/*summary callout styling*/
+.markdown-preview-view .callout[data-callout="summary"] {
+    position: absolute;
+    left: 15px;
+    padding:30px;
+    width: 100%;
+	background-color: rgba(46, 57, 84, 1) !important;
+	mix-blend-mode: normal;
+	margin: 0 0 ;
 }
