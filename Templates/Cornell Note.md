@@ -18,7 +18,6 @@ The Cornell Note-taking System is a popular and effective method for organizing 
 <aside>Note's Layout</aside>
 
   
-
 The Cornell method offers a specific layout for each page of notes. The note is devided into three sections: 
 
 - ****Cue/Question Column (Left)**** — is used to write down questions, keywords, or cues related to the content you're recording in the main notes section.
