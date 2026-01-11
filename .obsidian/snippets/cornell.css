@@ -1,120 +1,28 @@
-/** Place this file in your $VAULT_NAME/.obsidian/snippets/ and enable the snippet in the Appearance Settings **/
-
-:root {
-    /* ✅ cue 폭 확대 */
-    --cue-width: 220px;       /* 필요하면 200~280px 사이로 조절 */
-    --cue-gap: 16px;          /* cue와 본문 사이 간격 */
-    --cue-offset: calc(var(--cue-width) + var(--cue-gap));
-    --cue-line: 1px solid lightgrey;
+.markdown-preview-view.cornell-note .callout[data-callout="info"] {
+    float: right;
+    padding: 8px;
+    position: absolute;
+    left: 4%;
+    width: 20%;
+    max-width: 300px;
+    min-width: 150px;
+    max-height: 200px;
+    color: white;
 }
 
-/* =========================
-   Layout: 본문에 cue 공간을 확보
-   - 기존 margin-inline:110px 고정값은 cue 폭 커지면 쉽게 깨져서 제거
-   - padding-left로 cue 공간을 만들고 cue는 그 영역 안에 배치
-   ========================= */
+.markdown-preview-view.cornell-note .callout[data-callout="info"] .callout-icon {
+    display: none;
+}
 
 .markdown-preview-view.cornell-note .markdown-preview-sizer,
 .markdown-source-view.cornell-note .markdown-preview-sizer {
     max-width: var(--file-line-width);
     margin-left: auto;
     margin-right: auto;
+    margin-inline: auto;
     width: 100%;
-
-    /* ✅ cue 영역을 본문 컨테이너 안에서 확보 */
-    padding-left: var(--cue-offset);
-
-    /* ✅ 편집모드에서 좌측이 잘리는(클리핑) 케이스 완화 */
-    overflow: visible;
 }
 
-/* 원본 유지: 내부 div 폭 관련 */
-.markdown-preview-view.cornell-note .markdown-preview-sizer > div,
-.markdown-source-view.cornell-note .markdown-preview-sizer > div {
-    max-width: var(--max-width);
-    width: var(--line-width);
-    margin-inline: var(--content-margin) !important;
-}
-
-/* 원본 유지: 본문 블록에 cue 라인 표시 */
-.markdown-preview-view.cornell-note .markdown-preview-sizer > div:has(p, ul, ol, pre),
-.markdown-source-view.cornell-note .markdown-preview-sizer > div:has(p, ul, ol, pre) {
-    border-left: var(--cue-line);
-    padding-left: 20px;
-}
-
-/* =========================
-   Cue typography
-   ========================= */
-
-.markdown-preview-view.cornell-note aside:first-line,
-.markdown-source-view.cornell-note aside:first-line {
-    font-weight: 700;
-}
-
-/* ✅ cue가 편집모드에서 안 보이는 문제 해결:
-   - left: 15px로 “바깥 여백”에 찍지 않고,
-   - 확보된 cue 공간 안쪽에 음수 left로 배치 */
-.markdown-preview-view.cornell-note aside,
-.markdown-preview-view.cornell-note h2,
-.markdown-source-view.cornell-note aside,
-.markdown-source-view.cornell-note h2 {
-    font-style: italic;
-    font-family: var(--font-text);
-    font-size: var(--font-adaptive-normal);
-    font-weight: var(--normal-weight);
-    line-height: var(--line-height);
-
-    padding: 0px 8px 0px 0px;
-    margin-right: 10px;
-
-    position: absolute;
-    left: calc(-1 * var(--cue-offset));
-    width: var(--cue-width);
-    max-width: var(--cue-width);
-
-    /* ✅ 본문/에디터 요소에 가려지지 않도록 */
-    z-index: 5;
-}
-
-.markdown-preview-view.cornell-note h2,
-.markdown-source-view.cornell-note h2 {
-    margin: 0;
-    color: var(--text-normal);
-}
-
-/* =========================
-   cues-header
-   ========================= */
-
-.markdown-preview-view.cornell-note div.cues-header,
-.markdown-source-view.cornell-note div.cues-header {
-    /* Keep sync with "h1, .markdown-rendered h1" selector */
-    position: absolute;
-
-    width: var(--cue-width);
-    max-width: var(--cue-width);
-
-    left: calc(-1 * var(--cue-offset));
-
-    /* ✅ 원본: top: 20; (단위 누락) */
-    top: 20px;
-
-    padding: 0px 8px 0px 0px;
-    letter-spacing: -0.015em;
-    line-height: var(--h1-line-height);
-    color: var(--h1-color);
-    font-family: var(--h1-font);
-    font-size: var(--h1-size);
-    font-style: var(--h1-style);
-    font-variant: var(--h1-variant);
-    font-weight: var(--h1-weight);
-
-    z-index: 6;
-}
-
-/* 원본 유지 */
-.markdown-preview-view.cornell-note summary,
-.markdown-source-view.cornell-note summary {
-    display: none;
+.markdown-preview-view.cornell-note .callout[data-callout="summary"] {
+    margin-top: 100px;
 }
