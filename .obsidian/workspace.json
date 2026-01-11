@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Templates/Cornell Note - Make a Cornell Note.md",
+                "file": "Study/Kotlin/무제.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Cornell Note - Make a Cornell Note"
+              "title": "무제"
             }
           }
         ]
@@ -189,17 +189,21 @@
       "templates:템플릿 삽입": false,
       "command-palette:명령어 팔레트 열기": false,
       "bases:새 베이스 생성하기": false,
-      "obsidian-git:Open Git source control": false
+      "obsidian-git:Open Git source control": false,
+      "templater-obsidian:Templater": false
     }
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
+    "Templates/Cornell/Cornell Note - Make a Cornell Note.md",
+    "Study/Kotlin/무제.md",
+    "Templates/Cornell",
+    "Study/Java/Test.md",
+    "Templates/Cornell/Cornell Note -- Add cue to document.md",
+    "Templates/Cornell/Cornell Note -- Add Banner Image.md",
     "Study/Flutter/ㅇ.md",
     "01.md",
-    "Templates/Cornell Note - Make a Cornell Note.md",
     "Study/Dart/무제.base",
-    "Study/Kotlin/무제.md",
-    "Study/Java/Test.md",
     "무제.md",
     "Study/Dart",
     "Study/Flutter",
@@ -207,9 +211,7 @@
     "Study/Kotlin",
     "Study/Java",
     "Study",
-    "Templates/Cornell Note -- Add Banner Image.md",
-    "Templates/Cornell Note -- Add cue to document.md",
-    "Templates/Cornell Note -- Add summary to document.md",
+    "Templates/Cornell/Cornell Note -- Add summary to document.md",
     "Templates",
     "환영합니다!.md"
   ]
