@@ -1,6 +1,8 @@
 ---
 cssclasses:
   - cornell-note
+  - cornell-border
+  - cornell-left
 ---
  
 <div class="cues-header">Cues</div>
