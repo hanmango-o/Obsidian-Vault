@@ -1,6 +1,5 @@
 ---
 cssclasses:
-  - cornell-note
 ---
 
 >[!cue] This is cue
