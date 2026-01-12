@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Java/변수와 자료형.md",
+                "file": "Study/Java/변수와 기본 자료형.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "변수와 자료형"
+              "title": "변수와 기본 자료형"
             }
           }
         ]
@@ -196,7 +196,7 @@
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
     "Templates/Cornell Note.md",
-    "Study/Java/변수와 자료형.md",
+    "Study/Java/변수와 기본 자료형.md",
     "Study/Flutter/ㅇ.md",
     "Study/Java/Test.md",
     "Study/Kotlin/무제 4.md",
