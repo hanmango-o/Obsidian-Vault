@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Java/배열.md",
+                "file": "Study/Java/참조 자료형.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "배열"
+              "title": "참조 자료형"
             }
           }
         ]
@@ -194,8 +194,9 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Java/변수와 기본 자료형.md",
     "Study/Java/배열.md",
+    "Study/Java/참조 자료형.md",
+    "Study/Java/변수와 기본 자료형.md",
     "Templates/Cornell Note.md",
     "Study/Flutter/ㅇ.md",
     "Study/Java/Test.md",
