@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Java/참조 자료형.md",
+                "file": "Study/Kotlin/무제.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "참조 자료형"
+              "title": "무제"
             }
           }
         ]
@@ -194,8 +194,9 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Java/변수와 기본 자료형.md",
     "Study/Java/참조 자료형.md",
+    "Study/Kotlin/무제.md",
+    "Study/Java/변수와 기본 자료형.md",
     "Study/Java/클래스와 메소드.md",
     "Study/Java/배열.md",
     "Templates/Cornell Note.md",
@@ -205,7 +206,6 @@
     "Study/Kotlin/무제 3.md",
     "Templates/Cornell Note Gen.md",
     "Study/Kotlin/무제 2.md",
-    "Study/Kotlin/무제.md",
     "02 Property Values.md",
     "Study/Kotlin/무제 1.md",
     "Study/Java/무제 4.md",
