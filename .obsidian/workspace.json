@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Kotlin/함수와 변수.md",
+                "file": "Study/Kotlin/클래스와 프로퍼티.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "함수와 변수"
+              "title": "클래스와 프로퍼티"
             }
           }
         ]
@@ -187,7 +187,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 555.5
+    "width": 276.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -203,8 +203,10 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "b9af3d233453acdf",
+  "active": "54569ba97f74ac82",
   "lastOpenFiles": [
+    "Study/Kotlin/함수와 변수.md",
+    "Study/Kotlin/클래스와 프로퍼티.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts/Clip Web Page.md",
@@ -225,7 +227,6 @@
     "copilot/copilot-custom-prompts",
     "copilot",
     "Study/Java/참조 자료형.md",
-    "Study/Kotlin/함수와 변수.md",
     "Study/Java/변수와 기본 자료형.md",
     "Study/Java/클래스와 메소드.md",
     "Study/Java/배열.md",
@@ -233,7 +234,6 @@
     "Study/Flutter/ㅇ.md",
     "Study/Java/Test.md",
     "Study/Kotlin/무제 4.md",
-    "Study/Kotlin/무제 3.md",
     "Templates/Cornell",
     "Study/Dart/무제.base",
     "Study/Dart",
