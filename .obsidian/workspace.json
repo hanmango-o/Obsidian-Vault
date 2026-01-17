@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Kotlin/while과 for 루프.md",
+                "file": "Study/Kotlin/Kotlin 이란?.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "while과 for 루프"
+              "title": "Kotlin 이란?"
             }
           }
         ]
@@ -206,9 +206,14 @@
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
     "Study/Kotlin/예외 처리.md",
-    "Study/Kotlin/while과 for 루프.md",
-    "Study/Kotlin/함수와 변수.md",
+    "Study/Kotlin/Kotlin 이란?.md",
+    "Study/Java/클래스와 메소드.md",
+    "Study/Java/변수와 기본 자료형.md",
+    "Study/Java/배열.md",
+    "Study/Java/참조 자료형.md",
     "Study/Kotlin/클래스와 프로퍼티.md",
+    "Study/Kotlin/함수와 변수.md",
+    "Study/Kotlin/while과 for 루프.md",
     "Study/Kotlin/enum과 when.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
@@ -229,11 +234,6 @@
     "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
     "copilot/copilot-custom-prompts",
     "copilot",
-    "Study/Java/참조 자료형.md",
-    "Study/Java/변수와 기본 자료형.md",
-    "Study/Java/클래스와 메소드.md",
-    "Study/Java/배열.md",
-    "Templates/Cornell Note.md",
     "Templates/Cornell",
     "Study/Dart/무제.base",
     "Study/Dart",
