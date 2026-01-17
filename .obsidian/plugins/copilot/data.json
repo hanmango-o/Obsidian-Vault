@@ -20,9 +20,9 @@
   "amazonBedrockApiKey": "",
   "amazonBedrockRegion": "",
   "siliconflowApiKey": "",
-  "githubCopilotAccessToken": "",
-  "githubCopilotToken": "",
-  "githubCopilotTokenExpiresAt": 0,
+  "githubCopilotAccessToken": "ghu_DZUJLKF0G7XLBMrM8wEGiT5KBwwcZ72rhkdP",
+  "githubCopilotToken": "tid=cc90d9677ba16e3ba7f0fc34419532c1;exp=1768639770;sku=monthly_subscriber_quota;proxy-ep=proxy.individual.githubcopilot.com;st=dotcom;chat=1;cit=1;malfil=1;editor_preview_features=1;agent_mode=1;agent_mode_auto_approval=1;mcp=1;ccr=1;rt=1;8kp=1;ip=221.143.1.62;asn=AS9318:5da0f728a3987fa2e6ff5ffa479cef0bdf99443366b5165e32315ba16923ab55",
+  "githubCopilotTokenExpiresAt": 1768639770000,
   "defaultChainType": "llm_chain",
   "defaultModelKey": "google/gemini-2.5-flash|openrouterai",
   "embeddingModelKey": "text-embedding-3-small|openai",
@@ -261,6 +261,16 @@
       "capabilities": [
         "reasoning"
       ]
+    },
+    {
+      "name": "claude-sonnet-4.5",
+      "provider": "github-copilot",
+      "enabled": true
+    },
+    {
+      "name": "gpt-5-mini",
+      "provider": "github-copilot",
+      "enabled": true
     }
   ],
   "activeEmbeddingModels": [

@@ -171,9 +171,19 @@
               "icon": "git-pull-request",
               "title": "Source Control"
             }
+          },
+          {
+            "id": "b9af3d233453acdf",
+            "type": "leaf",
+            "state": {
+              "type": "copilot-chat-view",
+              "state": {},
+              "icon": "message-square",
+              "title": "Copilot"
+            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
@@ -193,8 +203,10 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "54569ba97f74ac82",
+  "active": "b9af3d233453acdf",
   "lastOpenFiles": [
+    "copilot/copilot-conversations/이_부분@20260117_172124.md",
+    "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts/Clip Web Page.md",
     "copilot/copilot-custom-prompts/Clip YouTube Transcript.md",
     "copilot/copilot-custom-prompts/Rewrite as tweet thread.md",
@@ -222,14 +234,12 @@
     "Study/Java/Test.md",
     "Study/Kotlin/무제 4.md",
     "Study/Kotlin/무제 3.md",
-    "Templates/Cornell Note Gen.md",
     "Templates/Cornell",
     "Study/Dart/무제.base",
     "Study/Dart",
     "Study/Flutter",
     "Study/Android",
     "Study/Kotlin",
-    "Study/Java",
-    "Study"
+    "Study/Java"
   ]
 }
