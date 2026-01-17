@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Kotlin/enum과 when.md",
+                "file": "Study/Kotlin/예외 처리.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "enum과 when"
+              "title": "예외 처리"
             }
           }
         ]
@@ -205,10 +205,11 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Kotlin/클래스와 프로퍼티.md",
-    "Study/Kotlin/enum과 when.md",
     "Study/Kotlin/while과 for 루프.md",
     "Study/Kotlin/함수와 변수.md",
+    "Study/Kotlin/예외 처리.md",
+    "Study/Kotlin/클래스와 프로퍼티.md",
+    "Study/Kotlin/enum과 when.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts/Clip Web Page.md",
@@ -233,7 +234,6 @@
     "Study/Java/클래스와 메소드.md",
     "Study/Java/배열.md",
     "Templates/Cornell Note.md",
-    "Study/Flutter/ㅇ.md",
     "Templates/Cornell",
     "Study/Dart/무제.base",
     "Study/Dart",
