@@ -1,0 +1,14 @@
+---
+cssclasses:
+  - cornell-left
+  - cornell-livepreview
+---
+
+
+
+> [!cue] Sample of a Summary
+
+
+
+> [!summary] Title for summary
+
