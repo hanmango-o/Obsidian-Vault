@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Java/변수와 기본 자료형.md",
+                "file": "Study/Kotlin/예외 처리.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "변수와 기본 자료형"
+              "title": "예외 처리"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Java/변수와 기본 자료형.md",
+                "file": "Study/Kotlin/예외 처리.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "변수와 기본 자료형 의 개요"
+              "title": "예외 처리 의 개요"
             }
           },
           {
@@ -206,16 +206,16 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Java/배열.md",
-    "Study/Java/변수와 기본 자료형.md",
-    "Study/Kotlin/예외 처리.md",
-    "Study/Java/참조 자료형.md",
-    "Study/Java/클래스와 메소드.md",
     "Study/Kotlin/클래스와 프로퍼티.md",
     "Study/Kotlin/함수와 변수.md",
-    "Study/Kotlin/enum과 when.md",
-    "Study/Kotlin/Kotlin 이란?.md",
     "Study/Kotlin/while과 for 루프.md",
+    "Study/Kotlin/Kotlin 이란?.md",
+    "Study/Kotlin/예외 처리.md",
+    "Study/Kotlin/enum과 when.md",
+    "Study/Java/변수와 기본 자료형.md",
+    "Study/Java/배열.md",
+    "Study/Java/참조 자료형.md",
+    "Study/Java/클래스와 메소드.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts/Clip Web Page.md",
