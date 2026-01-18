@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Kotlin/Kotlin 이란?.md",
+                "file": "Study/Java/변수와 기본 자료형.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Kotlin 이란?"
+              "title": "변수와 기본 자료형"
             }
           }
         ]
@@ -154,12 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Study/Java/변수와 기본 자료형.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "개요"
+              "title": "변수와 기본 자료형 의 개요"
             }
           },
           {
@@ -183,7 +184,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -205,16 +206,16 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Kotlin/예외 처리.md",
-    "Study/Kotlin/Kotlin 이란?.md",
-    "Study/Java/클래스와 메소드.md",
-    "Study/Java/변수와 기본 자료형.md",
     "Study/Java/배열.md",
+    "Study/Java/변수와 기본 자료형.md",
+    "Study/Kotlin/예외 처리.md",
     "Study/Java/참조 자료형.md",
+    "Study/Java/클래스와 메소드.md",
     "Study/Kotlin/클래스와 프로퍼티.md",
     "Study/Kotlin/함수와 변수.md",
-    "Study/Kotlin/while과 for 루프.md",
     "Study/Kotlin/enum과 when.md",
+    "Study/Kotlin/Kotlin 이란?.md",
+    "Study/Kotlin/while과 for 루프.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts/Clip Web Page.md",
