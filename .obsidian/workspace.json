@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Kotlin/함수 정의와 호출.md",
+                "file": "Study/Kotlin/TODO - 컬렉션과 배열.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "함수 정의와 호출"
+              "title": "TODO - 컬렉션과 배열"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Kotlin/함수 정의와 호출.md",
+                "file": "Study/Kotlin/TODO - 컬렉션과 배열.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "함수 정의와 호출 의 개요"
+              "title": "TODO - 컬렉션과 배열 의 개요"
             }
           },
           {
@@ -204,11 +204,14 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "f33b3e4a121ebcb6",
+  "active": "54569ba97f74ac82",
   "lastOpenFiles": [
+    "Study/Kotlin/TODO - Null.md",
+    "Study/Kotlin/TODO - 컬렉션과 배열.md",
+    "Study/Kotlin/TODO - 원시 타입.md",
+    "Study/Kotlin/함수 정의와 호출.md",
     "Study/Kotlin/while과 for 루프.md",
     "Study/Kotlin/함수와 변수.md",
-    "Study/Kotlin/함수 정의와 호출.md",
     "Study/Java/배열.md",
     "Study/Java/변수와 기본 자료형.md",
     "Study/Java/참조 자료형.md",
@@ -230,9 +233,6 @@
     "copilot/copilot-custom-prompts/Make shorter.md",
     "copilot/copilot-custom-prompts/Emojify.md",
     "copilot/copilot-custom-prompts/Explain like I am 5.md",
-    "copilot/copilot-custom-prompts/Simplify.md",
-    "copilot/copilot-custom-prompts/Summarize.md",
-    "copilot/copilot-custom-prompts/Translate to Chinese.md",
     "copilot/copilot-custom-prompts",
     "copilot",
     "Templates/Cornell",
