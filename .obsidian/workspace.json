@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Kotlin/while과 for 루프.md",
+                "file": "Study/Kotlin/무제.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "while과 for 루프"
+              "title": "무제"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Kotlin/while과 for 루프.md",
+                "file": "Study/Kotlin/무제.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "while과 for 루프 의 개요"
+              "title": "무제 의 개요"
             }
           },
           {
@@ -206,6 +206,8 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
+    "Study/Kotlin/while과 for 루프.md",
+    "Study/Kotlin/무제.md",
     "Study/Kotlin/함수와 변수.md",
     "Study/Java/배열.md",
     "Study/Java/변수와 기본 자료형.md",
@@ -214,7 +216,6 @@
     "Study/Kotlin/예외 처리.md",
     "Study/Kotlin/클래스와 프로퍼티.md",
     "Study/Kotlin/enum과 when.md",
-    "Study/Kotlin/while과 for 루프.md",
     "Study/Kotlin/Kotlin 이란?.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
@@ -232,7 +233,6 @@
     "copilot/copilot-custom-prompts/Simplify.md",
     "copilot/copilot-custom-prompts/Summarize.md",
     "copilot/copilot-custom-prompts/Translate to Chinese.md",
-    "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
     "copilot/copilot-custom-prompts",
     "copilot",
     "Templates/Cornell",
