@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Java/변수와 기본 자료형.md",
+                "file": "Study/Java/TODO-Boxing과 Unboxing.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "변수와 기본 자료형"
+              "title": "TODO-Boxing과 Unboxing"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Java/변수와 기본 자료형.md",
+                "file": "Study/Java/TODO-Boxing과 Unboxing.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "변수와 기본 자료형 의 개요"
+              "title": "TODO-Boxing과 Unboxing 의 개요"
             }
           },
           {
@@ -184,11 +184,12 @@
             }
           }
         ],
-        "currentTab": 5
+        "currentTab": 6
       }
     ],
     "direction": "horizontal",
-    "width": 276.5
+    "width": 436.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -206,23 +207,24 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Java/무제.md",
-    "Study/Java/TODO-JVM.md",
-    "Study/Kotlin/TODO - 문자열과 정규식.md",
-    "Study/Kotlin/TODO - 컬렉션과 배열.md",
-    "Study/Kotlin/TODO - Null.md",
+    "Study/Java/TODO-래퍼 클래스.md",
+    "Study/Java/TODO-Boxing과 Unboxing.md",
     "Study/Kotlin/TODO - 원시 타입.md",
-    "Study/Kotlin/함수 정의와 호출.md",
-    "Study/Kotlin/while과 for 루프.md",
+    "Study/Kotlin/TODO - 문자열과 정규식.md",
+    "Study/Kotlin/TODO - Null.md",
+    "Study/Kotlin/TODO - 컬렉션과 배열.md",
     "Study/Kotlin/함수와 변수.md",
-    "Study/Java/배열.md",
-    "Study/Java/변수와 기본 자료형.md",
-    "Study/Java/참조 자료형.md",
-    "Study/Java/클래스와 메소드.md",
-    "Study/Kotlin/예외 처리.md",
-    "Study/Kotlin/클래스와 프로퍼티.md",
     "Study/Kotlin/enum과 when.md",
     "Study/Kotlin/Kotlin 이란?.md",
+    "Study/Java/변수와 기본 자료형.md",
+    "Study/Java/클래스와 메소드.md",
+    "Study/Java/TODO-JVM.md",
+    "Study/Kotlin/함수 정의와 호출.md",
+    "Study/Kotlin/클래스와 프로퍼티.md",
+    "Study/Kotlin/while과 for 루프.md",
+    "Study/Java/배열.md",
+    "Study/Java/참조 자료형.md",
+    "Study/Kotlin/예외 처리.md",
     "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts/Clip Web Page.md",
@@ -232,7 +234,6 @@
     "copilot/copilot-custom-prompts/Remove URLs.md",
     "copilot/copilot-custom-prompts/Generate glossary.md",
     "copilot/copilot-custom-prompts/Generate table of contents.md",
-    "copilot/copilot-custom-prompts/Make longer.md",
     "copilot/copilot-custom-prompts",
     "copilot",
     "Templates/Cornell",
