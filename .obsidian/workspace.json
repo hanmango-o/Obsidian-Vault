@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Android/Context.md",
+                "file": "Study/Android/Activity 생명주기.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Context"
+              "title": "Activity 생명주기"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Android/Context.md",
+                "file": "Study/Android/Activity 생명주기.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Context 의 개요"
+              "title": "Activity 생명주기 의 개요"
             }
           },
           {
@@ -207,8 +207,19 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
-    "Study/Android/Configuration Changes.md",
+    "copilot/copilot-custom-prompts/Generate glossary.md",
+    "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
+    "copilot/copilot-custom-prompts/Clip YouTube Transcript.md",
+    "copilot/copilot-custom-prompts/Explain like I am 5.md",
+    "copilot/copilot-custom-prompts/Generate table of contents.md",
+    "copilot/copilot-custom-prompts/Remove URLs.md",
+    "copilot/copilot-custom-prompts/Translate to Chinese.md",
+    "copilot/copilot-custom-prompts/Summarize.md",
+    "copilot/copilot-custom-prompts/Make longer.md",
+    "copilot/copilot-custom-prompts/Emojify.md",
+    "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "Study/Android/Context.md",
+    "Study/Android/Configuration Changes.md",
     "Study/Android/Service.md",
     "Study/Android/Android 4대 컴포넌트.md",
     "Study/Android/Broadcast.md",
@@ -222,17 +233,6 @@
     "Study/Kotlin/TODO - 컬렉션과 배열.md",
     "Study/Kotlin/함수와 변수.md",
     "Study/Kotlin/enum과 when.md",
-    "Study/Kotlin/Kotlin 이란?.md",
-    "Study/Java/변수와 기본 자료형.md",
-    "Study/Java/클래스와 메소드.md",
-    "Study/Java/TODO-JVM.md",
-    "Study/Kotlin/함수 정의와 호출.md",
-    "Study/Kotlin/클래스와 프로퍼티.md",
-    "Study/Kotlin/while과 for 루프.md",
-    "Study/Java/배열.md",
-    "Study/Java/참조 자료형.md",
-    "Study/Kotlin/예외 처리.md",
-    "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts",
     "copilot",
