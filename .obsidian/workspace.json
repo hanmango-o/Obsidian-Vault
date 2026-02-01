@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Android/Activity 생명주기.md",
+                "file": "Study/Android/Recomposition, Stability.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Activity 생명주기"
+              "title": "Recomposition, Stability"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Android/Activity 생명주기.md",
+                "file": "Study/Android/Recomposition, Stability.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Activity 생명주기 의 개요"
+              "title": "Recomposition, Stability 의 개요"
             }
           },
           {
@@ -207,6 +207,14 @@
   },
   "active": "54569ba97f74ac82",
   "lastOpenFiles": [
+    "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
+    "Study/Android/Recomposition, Stability.md",
+    "Study/Android/ViewBinding.md",
+    "Study/Android/lifecycleScope, viewModelScope, GlobalScope.md",
+    "Study/Android/Flow.collect & Flow.collectLatest.md",
+    "Study/Android/StateFlow, SharedFlow, Channel.md",
+    "Study/Android/App Architecture.md",
+    "Study/Android/Activity 생명주기.md",
     "copilot/copilot-custom-prompts/Generate glossary.md",
     "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
     "copilot/copilot-custom-prompts/Clip YouTube Transcript.md",
@@ -224,15 +232,7 @@
     "Study/Android/Android 4대 컴포넌트.md",
     "Study/Android/Broadcast.md",
     "Study/Android/Fragment 생명주기.md",
-    "Study/Android/Activity 생명주기.md",
     "Study/Java/TODO-Boxing과 Unboxing.md",
-    "Study/Java/TODO-래퍼 클래스.md",
-    "Study/Kotlin/TODO - 원시 타입.md",
-    "Study/Kotlin/TODO - 문자열과 정규식.md",
-    "Study/Kotlin/TODO - Null.md",
-    "Study/Kotlin/TODO - 컬렉션과 배열.md",
-    "Study/Kotlin/함수와 변수.md",
-    "Study/Kotlin/enum과 when.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts",
     "copilot",
