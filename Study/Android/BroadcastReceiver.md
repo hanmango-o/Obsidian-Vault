@@ -19,7 +19,7 @@ BroadcastReceiver는 Android 시스템이나 다른 앱에서 전달하는 시�
 
 ## 브로드캐스트 유형
 
-### 시스템 브로드캐스트
+### System Broadcasts
 
 Android OS에서 시스템 이벤트를 앱에 알리기 위해 전송합니다.
 
@@ -31,7 +31,7 @@ Android OS에서 시스템 이벤트를 앱에 알리기 위해 전송합니다.
 | `ACTION_AIRPLANE_MODE_CHANGED` | 비행기 모드 변경 |
 | `CONNECTIVITY_ACTION` | 네트워크 연결 상태 변경 |
 
-### 커스텀 브로드캐스트
+### Custom Broadcasts
 
 앱 내부 또는 다른 앱 간에 특정 정보나 이벤트를 전달하기 위해 직접 정의하여 전송합니다.
 
