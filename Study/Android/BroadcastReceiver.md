@@ -21,7 +21,7 @@ BroadcastReceiver는 Android 시스템이나 다른 앱에서 전달하는 시�
 
 ### System Broadcasts
 
-Android OS에서 시스템 이벤트를 앱에 알리기 위해 전송합니다.
+Android OS에서 시스템 이벤트(배터리 잔량 변경, 시간대 업데이트, 네트워크 연결 변경 등)를 앱에 알리기 위해 전송합니다.
 
 | Action | 설명 |
 |--------|------|

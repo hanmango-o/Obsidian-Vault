@@ -172,13 +172,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Storage/manifest-android-interview-kr.pdf",
+                "file": "Study/Android/BroadcastReceiver.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "manifest-android-interview-kr 의 개요"
+              "title": "BroadcastReceiver 의 개요"
             }
           },
           {
@@ -223,12 +223,12 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "ecf02113b2a9d66d",
+  "active": "a98af253ef2ef810",
   "lastOpenFiles": [
-    "Study/Android/BroadcastReceiver.md",
     "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
-    "Study/Android/Activity Lifecycle.md",
+    "Study/Android/BroadcastReceiver.md",
     "Storage/manifest-android-interview-kr.pdf",
+    "Study/Android/Activity Lifecycle.md",
     "Study/Android/Android 4대 컴포넌트.md",
     "Study/Android/App Architecture.md",
     "Storage",
