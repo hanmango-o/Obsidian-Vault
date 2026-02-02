@@ -45,7 +45,7 @@ sendBroadcast(intent)
 
 ---
 
-## 리시버 등록 방식
+## Custom Broadcasts 등록 방식
 
 ### 정적 등록 (Static Registration)
 
