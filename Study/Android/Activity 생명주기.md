@@ -42,10 +42,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
 }
 ```
 
+- Activity 초기화
 - 레이아웃 설정 (`setContentView`)
 - 뷰 바인딩 초기화
 - ViewModel 연결
 - `savedInstanceState`로 이전 상태 복원
+- Activity가 소멸되고 재생성되지 않는 한, 한 번만 호출
 
 ### onStart()
 
@@ -53,17 +55,19 @@ Activity가 **화면에 보이기 시작**할 때 호출됩니다.
 
 - 포그라운드 진입 준비
 - UI 관련 리소스 등록
+- 사용자와 아직은 상호작용 불가
 
 ### onResume()
 
 Activity가 **포그라운드에서 사용자와 상호작용** 가능한 상태가 됩니다.
 
 - 카메라, 센서 등 리소스 활성화
-- 애니메이션 시작
+- UI 업데이트, 애니메이션 시작
+- 입력 리스너 재개
 
 ### onPause()
 
-Activity가 **포커스를 잃을 때** 호출됩니다.
+Activity가 **포커스를 잃을 때(부분적으로 가려질 때)** 호출됩니다. Activity는 보이지만 포커스 중인 상태는 아닙니다.
 
 - 배터리 소모 리소스 해제
 - 진행 중인 작업 일시 중지
