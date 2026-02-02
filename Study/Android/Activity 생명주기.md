@@ -78,7 +78,7 @@ Activity가 **포커스를 잃을 때(부분적으로 가려질 때)** 호출됩
 Activity가 **화면에서 완전히 사라질 때** 호출됩니다.
 
 - 불필요한 리소스 해제
-- 데이터베이스 저장 등 무거운 작업 수행 가능
+- 백그라운드 작업, 데이터베이스 저장 등 무거운 작업 해제
 
 ### onDestroy()
 
@@ -90,14 +90,14 @@ Activity가 **종료될 때** 호출됩니다.
 
 ## 상황별 생명주기 흐름
 
-| 상황 | 호출 순서 |
-|------|-----------|
-| 앱 최초 실행 | onCreate → onStart → onResume |
-| 홈 버튼 | onPause → onStop |
-| 앱 복귀 | onRestart → onStart → onResume |
-| 화면 회전 | onPause → onStop → onSaveInstanceState → onDestroy → onCreate → onStart → onRestoreInstanceState → onResume |
-| 뒤로가기 | onPause → onStop → onDestroy |
-| Dialog/투명 Activity | onPause (onStop 호출 안 됨) |
+| 상황                 | 호출 순서                                                                                                       |
+| ------------------ | ----------------------------------------------------------------------------------------------------------- |
+| 앱 최초 실행            | onCreate → onStart → onResume                                                                               |
+| 홈 버튼               | onPause → onStop                                                                                            |
+| 앱 복귀               | onRestart → onStart → onResume                                                                              |
+| 화면 회전              | onPause → onStop → onSaveInstanceState → onDestroy → onCreate → onStart → onRestoreInstanceState → onResume |
+| 뒤로가기               | onPause → onStop → onDestroy                                                                                |
+| Dialog/투명 Activity | onPause (onStop 호출 안 됨)                                                                                     |
 
 ---
 
