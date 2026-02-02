@@ -8,27 +8,27 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ecf02113b2a9d66d",
+            "id": "a98af253ef2ef810",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Android/Activity 생명주기.md",
+                "file": "Study/Android/Activity lifecycle.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Activity 생명주기"
+              "title": "Activity lifecycle"
             }
           }
         ]
       },
       {
-        "id": "23ba6a7a01b85d8a",
+        "id": "779442e52012a2d9",
         "type": "tabs",
         "children": [
           {
-            "id": "54569ba97f74ac82",
+            "id": "ecf02113b2a9d66d",
             "type": "leaf",
             "state": {
               "type": "pdf",
@@ -96,8 +96,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "d2fcc71ea12a3246",
@@ -173,13 +172,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Android/Activity 생명주기.md",
+                "file": "Storage/manifest-android-interview-kr.pdf",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Activity 생명주기 의 개요"
+              "title": "manifest-android-interview-kr 의 개요"
             }
           },
           {
@@ -226,8 +225,8 @@
   },
   "active": "ecf02113b2a9d66d",
   "lastOpenFiles": [
+    "Study/Android/Activity lifecycle.md",
     "Storage/manifest-android-interview-kr.pdf",
-    "Study/Android/Activity 생명주기.md",
     "Study/Android/App Architecture.md",
     "Storage",
     "Study/Android/Android 4대 컴포넌트.md",
