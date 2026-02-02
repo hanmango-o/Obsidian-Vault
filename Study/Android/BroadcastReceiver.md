@@ -95,16 +95,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
         unregisterReceiver(receiver)  // 반드시 해제
+        super.onDestroy()
     }
 }
 ```
 
 **특징:**
 - 앱이 활성 상태일 때만 이벤트 수신
-- 반드시 `unregisterReceiver()` 호출 필요 (메모리 누수 방지)
+- 호출한 Activity나 Fragment가 소멸될 때, 반드시 `unregisterReceiver()` 호출 필요 (메모리 누수 방지)
 - Android 13 이상: `RECEIVER_EXPORTED` 또는 `RECEIVER_NOT_EXPORTED` 플래그 필수
 
 **사용 사례:**
