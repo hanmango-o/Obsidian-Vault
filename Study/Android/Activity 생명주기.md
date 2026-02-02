@@ -212,18 +212,6 @@ object Singleton {
 
 ---
 
-## 키 포인트
-
-| 상황 | 핵심 포인트 |
-|------|-------------|
-| 화면 전환 | A의 onPause가 B의 onCreate보다 먼저 |
-| Dialog 노출 | 완전히 가려지지 않으면 onStop 호출 안 됨 |
-| 상태 유지 | Bundle은 소량 데이터, ViewModel은 대용량 데이터 |
-| 명시적 종료 | finish() 호출 시 onSaveInstanceState 생략 |
-| 메모리 누수 | Static 변수에 Activity Context 저장 금지 |
-
----
-
 ## 정리
 
 - Activity 생명주기: 6가지 콜백 메서드로 상태 변화 관리
