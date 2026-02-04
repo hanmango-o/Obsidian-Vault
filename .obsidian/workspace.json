@@ -13,30 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Android/Activity Lifecycle.md",
+                "file": "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Activity Lifecycle"
-            }
-          }
-        ]
-      },
-      {
-        "id": "779442e52012a2d9",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "ecf02113b2a9d66d",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Storage/manifest-android-interview-kr.pdf"
-              },
-              "icon": "lucide-file-text",
-              "title": "manifest-android-interview-kr"
+              "title": "collectAsState, collectAsStateWithLifecycle"
             }
           }
         ]
@@ -172,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Android/Activity Lifecycle.md",
+                "file": "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Activity Lifecycle 의 개요"
+              "title": "collectAsState, collectAsStateWithLifecycle 의 개요"
             }
           },
           {
@@ -226,20 +208,20 @@
   "active": "a98af253ef2ef810",
   "lastOpenFiles": [
     "Study/Android/Service.md",
+    "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
+    "Study/Android/Activity Lifecycle.md",
+    "Study/Android/Android 4대 컴포넌트.md",
+    "Study/Android/ViewBinding.md",
+    "Study/Android/Fragment 생명주기.md",
+    "Study/Android/Context.md",
+    "Study/Android/lifecycleScope, viewModelScope, GlobalScope.md",
+    "Study/Android/Configuration Changes.md",
+    "Storage/manifest-android-interview-kr.pdf",
     "Study/Android/StateFlow, SharedFlow, Channel.md",
     "Study/Android/Recomposition, Stability.md",
-    "Study/Android/ViewBinding.md",
-    "Study/Android/lifecycleScope, viewModelScope, GlobalScope.md",
-    "Study/Android/Fragment 생명주기.md",
     "Study/Android/Flow.collect & Flow.collectLatest.md",
-    "Study/Android/Context.md",
-    "Study/Android/Configuration Changes.md",
-    "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
     "Study/Android/BroadcastReceiver.md",
     "Study/Android/App Architecture.md",
-    "Study/Android/Android 4대 컴포넌트.md",
-    "Study/Android/Activity Lifecycle.md",
-    "Storage/manifest-android-interview-kr.pdf",
     "Study/Android/아카이브.zip",
     "Storage",
     "copilot/copilot-custom-prompts/Generate glossary.md",

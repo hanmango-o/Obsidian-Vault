@@ -19,13 +19,13 @@ Jetpack Compose에서 `collectAsState`와 `collectAsStateWithLifecycle`은 모�
 
 ## 비교
 
-| 구분 | collectAsState | collectAsStateWithLifecycle |
-|------|----------------|----------------------------|
-| 생명주기 인식 | 컴포지션 기반 (Android 생명주기 미인식) | Android 생명주기 기반 |
-| 백그라운드 동작 | 계속 수집 | 수집 중단 |
-| 포그라운드 복귀 | 계속 수집 중 | 수집 재개 |
-| 플랫폼 | Compose Multiplatform (모든 플랫폼) | Android 전용 |
-| 리소스 관리 | 낭비 가능성 | 최적화됨 |
+| 구분       | collectAsState                 | collectAsStateWithLifecycle |
+| -------- | ------------------------------ | --------------------------- |
+| 생명주기 인식  | 컴포지션 기반 (Android 생명주기 미인식)     | Android 생명주기 기반             |
+| 백그라운드 동작 | 계속 수집                          | 수집 중단                       |
+| 포그라운드 복귀 | 계속 수집 중                        | 수집 재개                       |
+| 플랫폼      | Compose Multiplatform (모든 플랫폼) | Android 전용                  |
+| 리소스 관리   | 낭비 가능성                         | 최적화됨                        |
 
 ---
 
