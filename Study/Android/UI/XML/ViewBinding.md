@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/UI/XML
 ---
 
 - ViewBinding의 개념과 장점

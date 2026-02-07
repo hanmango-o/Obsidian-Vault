@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Basic
 ---
 
 - Fragment의 생명주기와 각 콜백 메서드의 역할

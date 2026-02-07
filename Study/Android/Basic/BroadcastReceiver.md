@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/Basic
 ---
 
 - BroadcastReceiver의 개념과 역할

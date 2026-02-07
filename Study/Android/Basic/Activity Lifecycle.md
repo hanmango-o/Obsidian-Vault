@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/Basic
 ---
 
 - Activity의 생명주기 개념과 중요성

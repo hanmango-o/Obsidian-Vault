@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Basic
 ---
 
 - Android 애플리케이션을 구성하는 4가지 핵심 컴포넌트

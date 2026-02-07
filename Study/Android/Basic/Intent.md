@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Basic
 ---
 
 - 명시적 인텐트와 암시적 인텐트의 차이점

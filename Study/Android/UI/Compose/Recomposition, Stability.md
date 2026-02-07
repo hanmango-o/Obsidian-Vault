@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/UI/Compose
 ---
 
 - Recomposition의 개념과 트리거 조건

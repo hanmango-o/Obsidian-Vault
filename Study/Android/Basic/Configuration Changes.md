@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Basic
 ---
 
 - Configuration Change의 개념과 발생 상황

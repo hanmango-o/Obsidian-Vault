@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/Async
 ---
 
 - Android에서 사용하는 주요 CoroutineScope 종류

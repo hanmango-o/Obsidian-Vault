@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/UI/XML
 ---
 
 - Android View의 렌더링 파이프라인 (Measure → Layout → Draw)

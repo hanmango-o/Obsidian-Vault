@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/UI/Compose
 ---
 
 - collectAsState와 collectAsStateWithLifecycle의 차이점

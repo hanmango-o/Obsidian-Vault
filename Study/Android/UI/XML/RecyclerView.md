@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/UI/XML
 ---
 
 - RecyclerView의 개념과 ListView 대비 장점

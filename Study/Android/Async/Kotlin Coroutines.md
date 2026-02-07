@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Async
 ---
 
 - Kotlin 코루틴의 핵심 개념과 동작 원리

@@ -11,14 +11,10 @@
             "id": "7b8f6a8d2f91e7df",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "collectAsState, collectAsStateWithLifecycle"
+              "title": "새 탭"
             }
           }
         ]
@@ -154,13 +150,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "collectAsState, collectAsStateWithLifecycle 의 개요"
+              "title": "개요"
             }
           },
           {
@@ -207,41 +202,41 @@
   },
   "active": "7b8f6a8d2f91e7df",
   "lastOpenFiles": [
+    "Study/Android/Kotlin Coroutines.md",
+    "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
+    "Study/Android/Async/StateFlow, SharedFlow, Channel.md",
+    "Study/Android/Async/lifecycleScope, viewModelScope, GlobalScope.md",
+    "Study/Android/Async/Kotlin Coroutines.md",
+    "Study/Android/Architecture/Jetpack ViewModel.md",
+    "Study/Android/Architecture/App Architecture.md",
+    "Study/Android/UI/Compose/collectAsState, collectAsStateWithLifecycle.md",
+    "Study/Android/UI/Compose/Recomposition, Stability.md",
+    "Study/Android/UI/XML/ViewBinding.md",
+    "Study/Android/UI/XML/RecyclerView.md",
+    "Study/Android/UI/XML/Android View 생명주기.md",
+    "Study/Android/Basic/BroadcastReceiver.md",
+    "Study/Android/Basic/Service.md",
+    "Study/Android/Basic/Configuration Changes.md",
+    "Study/Android/Basic/Context.md",
+    "Study/Android/Basic/Intent.md",
+    "Study/Android/Basic/Fragment 생명주기.md",
+    "Study/Android/Basic/Activity Lifecycle.md",
+    "Study/Android/Basic/Android 4대 컴포넌트.md",
+    "Study/Android/Async",
+    "Study/Android/Architecture",
+    "Study/Android/UI/XML",
+    "Study/Android/UI/Compose",
+    "Study/Android/UI",
+    "Study/Android/Basic",
+    "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
     "Study/Android/Jetpack ViewModel.md",
     "Study/Android/ViewBinding.md",
-    "Study/Android/Kotlin Coroutines.md",
     "Study/Android/Intent.md",
     "Study/Android/RecyclerView.md",
     "2026-02-02.md",
-    "Study/Android/Flow.collect & Flow.collectLatest.md",
-    "Study/Android/Android View 생명주기.md",
-    "Study/Android/StateFlow, SharedFlow, Channel.md",
-    "Study/Android/Service.md",
-    "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
-    "Study/Android/Activity Lifecycle.md",
-    "Study/Android/Android 4대 컴포넌트.md",
-    "Study/Android/Fragment 생명주기.md",
-    "Study/Android/Context.md",
-    "Study/Android/lifecycleScope, viewModelScope, GlobalScope.md",
-    "Study/Android/Configuration Changes.md",
     "Storage/manifest-android-interview-kr.pdf",
-    "Study/Android/Recomposition, Stability.md",
-    "Study/Android/BroadcastReceiver.md",
-    "Study/Android/App Architecture.md",
     "Study/Android/아카이브.zip",
     "Storage",
-    "copilot/copilot-custom-prompts/Generate glossary.md",
-    "copilot/copilot-custom-prompts/Fix grammar and spelling.md",
-    "copilot/copilot-custom-prompts/Clip YouTube Transcript.md",
-    "copilot/copilot-custom-prompts/Explain like I am 5.md",
-    "copilot/copilot-custom-prompts/Generate table of contents.md",
-    "copilot/copilot-custom-prompts/Remove URLs.md",
-    "copilot/copilot-conversations",
-    "copilot/copilot-custom-prompts",
-    "copilot",
-    "Templates/Cornell",
-    "Study/Dart/무제.base",
-    "Study/Dart",
-    "Study/Flutter"
+    "copilot/copilot-conversations"
   ]
 }

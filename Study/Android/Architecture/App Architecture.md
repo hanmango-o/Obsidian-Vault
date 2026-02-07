@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Architecture
 ---
 
 - Android 권장 앱 아키텍처의 개념과 원칙

@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/Async
 ---
 
 - Cold Flow와 Hot Flow의 차이점

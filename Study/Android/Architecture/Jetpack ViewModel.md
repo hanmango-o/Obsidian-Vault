@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-07
-topic: Android
+topic: Android/Architecture
 ---
 
 - Jetpack ViewModel의 개념과 역할

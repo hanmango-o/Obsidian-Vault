@@ -1,6 +1,6 @@
 ---
 modified: 2026-02-02
-topic: Android
+topic: Android/Async
 ---
 
 - Flow의 collect와 collectLatest의 차이점
