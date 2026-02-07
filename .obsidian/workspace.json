@@ -202,6 +202,7 @@
   },
   "active": "7b8f6a8d2f91e7df",
   "lastOpenFiles": [
+    "Study/Android/Async/Kotlin Flow.md",
     "Study/Android/Kotlin Coroutines.md",
     "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
     "Study/Android/Async/StateFlow, SharedFlow, Channel.md",
@@ -233,7 +234,6 @@
     "Study/Android/ViewBinding.md",
     "Study/Android/Intent.md",
     "Study/Android/RecyclerView.md",
-    "2026-02-02.md",
     "Storage/manifest-android-interview-kr.pdf",
     "Study/Android/아카이브.zip",
     "Storage",
