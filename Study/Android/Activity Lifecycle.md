@@ -15,7 +15,7 @@ topic: Android
 
 ## 생명주기 개요
 
-Activity는 사용자와 상호작용하는 화면 단위입니다. 시스템은 Activity의 상태 변화에 따라 생명주기 콜백 메서드를 호출합니다.
+Activity는 사용자와 상호작용하는 화면 단위입니다. 시스템은 Activity의 상태 변화에 따라 생명주기 콜백 메서드를 호출합니다. Activity는 [[Android 4대 컴포넌트]]의 핵심이며, [[Intent]]를 통해 다른 컴포넌트와 통신합니다.
 
 ```mermaid
 flowchart TD
@@ -45,7 +45,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 - Activity 초기화
 - 레이아웃 설정 (`setContentView`)
 - 뷰 바인딩 초기화
-- ViewModel 연결
+- [[Jetpack ViewModel|ViewModel]] 연결
 - `savedInstanceState`로 이전 상태 복원
 - Activity가 소멸되고 재생성되지 않는 한, 한 번만 호출
 
@@ -95,7 +95,7 @@ Activity가 **종료될 때** 호출됩니다.
 | 앱 최초 실행            | onCreate → onStart → onResume                                                                               |
 | 홈 버튼               | onPause → onStop                                                                                            |
 | 앱 복귀               | onRestart → onStart → onResume                                                                              |
-| 화면 회전              | onPause → onStop → onSaveInstanceState → onDestroy → onCreate → onStart → onRestoreInstanceState → onResume |
+| 화면 회전 ([[Configuration Changes]])  | onPause → onStop → onSaveInstanceState → onDestroy → onCreate → onStart → onRestoreInstanceState → onResume |
 | 뒤로가기               | onPause → onStop → onDestroy                                                                                |
 | Dialog/투명 Activity | onPause (onStop 호출 안 됨)                                                                                     |
 
@@ -192,7 +192,7 @@ onPause() → onStop() → onDestroy()
 
 ### 메모리 누수 주의
 
-Activity가 `finish()`되어 소멸되었더라도, 싱글톤 객체나 정적(Static) 변수가 해당 Activity의 Context를 참조하고 있다면 **가비지 컬렉터가 메모리를 회수할 수 없어 메모리 누수**가 발생합니다.
+Activity가 `finish()`되어 소멸되었더라도, 싱글톤 객체나 정적(Static) 변수가 해당 Activity의 [[Context]]를 참조하고 있다면 **가비지 컬렉터가 메모리를 회수할 수 없어 메모리 누수**가 발생합니다.
 
 ```kotlin
 // 잘못된 예 - 메모리 누수

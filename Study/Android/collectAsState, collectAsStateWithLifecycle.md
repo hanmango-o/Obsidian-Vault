@@ -13,7 +13,7 @@ topic: Android
 
 ## 개요
 
-Jetpack Compose에서 `collectAsState`와 `collectAsStateWithLifecycle`은 모두 Kotlin Flow를 Compose의 State로 변환하여 UI를 업데이트하는 데 사용됩니다. 가장 큰 차이점은 **Android 생명주기(Lifecycle) 인식 여부**입니다.
+Jetpack Compose에서 `collectAsState`와 `collectAsStateWithLifecycle`은 모두 [[Kotlin Coroutines|Kotlin Flow]]를 Compose의 State로 변환하여 UI를 업데이트하는 데 사용됩니다. Flow에서 새 값이 방출되면 [[Recomposition, Stability|Recomposition]]이 트리거됩니다. 가장 큰 차이점은 **Android 생명주기(Lifecycle) 인식 여부**입니다.
 
 ---
 

@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-07
 topic: Android
 ---
 
@@ -14,7 +14,7 @@ topic: Android
 
 ## 개요
 
-Configuration Change는 기기의 설정이 변경될 때 시스템이 새로운 환경에 맞는 리소스를 적용하기 위해 현재 실행 중인 컴포넌트를 재시작하는 메커니즘입니다. 올바르게 처리하는 것은 데이터 손실을 방지하고 원활한 사용자 경험을 유지하는 데 필수적입니다.
+Configuration Change는 기기의 설정이 변경될 때 시스템이 새로운 환경에 맞는 리소스를 적용하기 위해 현재 실행 중인 컴포넌트를 재시작하는 메커니즘입니다. [[Activity Lifecycle|Activity의 생명주기]]와 밀접하게 연관됩니다. 올바르게 처리하는 것은 데이터 손실을 방지하고 원활한 사용자 경험을 유지하는 데 필수적입니다.
 
 ---
 
@@ -115,7 +115,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 ## 데이터 유지: ViewModel
 
-ViewModel은 Configuration Change에도 파괴되지 않고 UI 관련 데이터를 유지하도록 설계된 컴포넌트입니다.
+[[Jetpack ViewModel|ViewModel]]은 Configuration Change에도 파괴되지 않고 UI 관련 데이터를 유지하도록 설계된 컴포넌트입니다.
 
 ### 동작 원리
 
@@ -130,6 +130,22 @@ flowchart TD
     F --> G[Configuration Change]
     G --> H[Activity 재생성]
     H --> B
+```
+
+### ViewModelStore 내부 메커니즘
+
+ViewModelStore는 `Map<String, ViewModel>` 형태로 ViewModel 인스턴스를 저장합니다. `ComponentActivity`의 `onDestroy()` 내부에서 `isChangingConfigurations()`를 체크하여, Configuration Change 시에는 ViewModelStore를 보존하고 실제 종료 시에만 `clear()`를 호출합니다.
+
+```kotlin
+// ComponentActivity 내부 구현 (간략화)
+override fun onDestroy() {
+    super.onDestroy()
+    if (!isChangingConfigurations) {
+        // 실제 종료일 때만 ViewModel 정리
+        viewModelStore.clear()
+    }
+    // Configuration Change 시에는 ViewModelStore 보존
+}
 ```
 
 ### 사용 예제

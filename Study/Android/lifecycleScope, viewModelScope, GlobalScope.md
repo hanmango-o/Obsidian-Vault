@@ -14,7 +14,7 @@ topic: Android
 
 ## 개요
 
-CoroutineScope는 코루틴의 실행 범위를 정의하고 수명을 관리하는 중요한 도구입니다. Jetpack 라이브러리에서 제공하는 생명주기 인식(Lifecycle-aware) 스코프를 사용하면 코루틴을 안전하게 관리하고 메모리 누수를 방지할 수 있습니다.
+CoroutineScope는 [[Kotlin Coroutines|코루틴]]의 실행 범위를 정의하고 수명을 관리하는 중요한 도구입니다. Jetpack 라이브러리에서 제공하는 생명주기 인식(Lifecycle-aware) 스코프를 사용하면 코루틴을 안전하게 관리하고 메모리 누수를 방지할 수 있습니다.
 
 ---
 
@@ -31,7 +31,7 @@ CoroutineScope는 코루틴의 실행 범위를 정의하고 수명을 관리하
 
 ## viewModelScope
 
-Jetpack ViewModel에 포함된 스코프입니다. **가장 권장되는 스코프**입니다.
+[[Jetpack ViewModel]]에 포함된 스코프입니다. **가장 권장되는 스코프**입니다.
 
 ### 특징
 

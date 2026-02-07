@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-07
 topic: Android
 ---
 
@@ -9,6 +9,9 @@ topic: Android
 - Activity와 Fragment에서의 적용
 - Fragment에서 binding 해제의 중요성
 - DataBinding과의 차이점
+- 컴파일타임 코드 생성 원리
+- DataBinding의 Two-way Binding
+- kapt와 ksp의 차이점
 
 ---
 
@@ -109,7 +112,7 @@ class MainActivity : AppCompatActivity() {
 
 ## Fragment에서 사용
 
-Fragment는 View의 생명주기가 Fragment 자체보다 짧기 때문에, **`onDestroyView()`에서 반드시 바인딩 참조를 해제**해야 메모리 누수를 방지할 수 있습니다.
+[[Fragment 생명주기|Fragment]]는 View의 생명주기가 Fragment 자체보다 짧기 때문에, **`onDestroyView()`에서 반드시 바인딩 참조를 해제**해야 메모리 누수를 방지할 수 있습니다.
 
 ```kotlin
 class HomeFragment : Fragment() {
@@ -160,7 +163,7 @@ flowchart LR
 
 ---
 
-## RecyclerView ViewHolder에서 사용
+## [[RecyclerView]] ViewHolder에서 사용
 
 ```kotlin
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
@@ -215,6 +218,116 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
 ---
 
+## 컴파일타임 코드 생성 원리
+
+### ViewBinding의 코드 생성
+
+ViewBinding을 활성화하면 빌드 시점에 **모든 XML 레이아웃 파일**에 대해 바인딩 클래스가 자동 생성됩니다.
+
+- 클래스 이름: XML 파일명을 카멜 케이스로 변환 + `Binding` 접미사
+- ID가 있는 모든 뷰에 대한 직접 참조 포함
+- 별도의 어노테이션 프로세싱 없이 Gradle 플러그인이 처리
+- 바인딩 표현식이나 XML 파싱이 없으므로 **런타임 오버헤드 최소화**
+
+### DataBinding의 코드 생성
+
+DataBinding은 `<layout>` 태그를 사용하는 XML에 대해 바인딩 클래스를 생성합니다.
+
+- 뷰 참조 + XML 내 표현식 바인딩 + 데이터 관찰 기능을 포함한 추가 클래스 생성
+- **어노테이션 프로세싱(kapt/ksp)**을 통해 컴파일 타임에 코드 생성
+- 뷰와 데이터 소스를 실시간 동기화하는 기반 코드 포함
+
+```xml
+<!-- DataBinding 필수: <layout> 태그로 감싸기 -->
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="user" type="com.example.User"/>
+    </data>
+
+    <TextView
+        android:text="@{user.name}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</layout>
+```
+
+---
+
+## DataBinding Two-way Binding
+
+UI 컴포넌트의 값과 데이터 모델 간의 데이터를 **자동으로 양방향 동기화**하는 메커니즘입니다.
+
+### 단방향 vs 양방향
+
+| 구분 | 표현식 | 동작 |
+|------|--------|------|
+| 단방향 | `@{viewModel.text}` | 데이터 → UI |
+| 양방향 | `@={viewModel.text}` | 데이터 ↔ UI |
+
+### 사용 예제
+
+```xml
+<EditText
+    android:text="@={viewModel.searchQuery}"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
+```
+
+```kotlin
+class SearchViewModel : ViewModel() {
+    val searchQuery = MutableLiveData<String>()
+}
+```
+
+사용자가 EditText에 텍스트를 입력하면 `searchQuery`가 자동 업데이트되고, 코드에서 `searchQuery`를 변경하면 EditText도 자동 업데이트됩니다.
+
+---
+
+## kapt와 ksp
+
+DataBinding, Hilt, Room 등 어노테이션 기반 코드 생성에 사용되는 도구입니다.
+
+### kapt (Kotlin Annotation Processing Tool)
+
+Java의 APT를 래핑하여 동작합니다. Kotlin 소스에서 **Java 스텁(stub)**을 생성한 뒤 처리하므로 빌드 속도에 영향을 줄 수 있습니다.
+
+```kotlin
+// build.gradle.kts
+plugins {
+    id("kotlin-kapt")
+}
+
+dependencies {
+    kapt("com.google.dagger:hilt-compiler:2.48")
+}
+```
+
+### ksp (Kotlin Symbol Processing)
+
+Kotlin에서 **직접 작동**하는 현대적인 기법입니다. Java 스텁 생성 없이 Kotlin 코드를 직접 분석하므로 kapt보다 빠릅니다.
+
+```kotlin
+// build.gradle.kts
+plugins {
+    id("com.google.devtools.ksp")
+}
+
+dependencies {
+    ksp("androidx.room:room-compiler:2.6.0")
+}
+```
+
+### 비교
+
+| 구분 | kapt | ksp |
+|------|------|-----|
+| 동작 방식 | Java 스텁 생성 후 처리 | Kotlin 코드 직접 분석 |
+| 빌드 속도 | 상대적으로 느림 | 빠름 (최대 2배) |
+| Kotlin 이해 | 제한적 (Java APT 기반) | Kotlin 구조를 더 잘 이해 |
+| 지원 라이브러리 | Hilt, Room, DataBinding 등 | Room, Moshi 등 (점차 확대) |
+
+---
+
 ## 메모리 누수 방지 체크리스트
 
 1. **Fragment에서 `onDestroyView()`에서 binding = null**
@@ -244,6 +357,9 @@ viewModel.data.observe(viewLifecycleOwner) { ... }
 - Fragment: `onDestroyView()`에서 binding = null 필수
 - viewLifecycleOwner: LiveData 관찰 시 뷰 생명주기에 맞춤
 - DataBinding과 차이: ViewBinding은 단순 뷰 접근, DataBinding은 데이터 바인딩
+- 코드 생성: ViewBinding은 Gradle 플러그인, DataBinding은 어노테이션 프로세싱(kapt/ksp)
+- Two-way Binding: `@={}` 표현식으로 양방향 데이터 동기화
+- kapt vs ksp: kapt는 Java 스텁 기반(느림), ksp는 Kotlin 직접 분석(빠름)
 
 ---
 

@@ -14,7 +14,7 @@ topic: Android
 
 ## Recomposition
 
-상태 변경이 발생했을 때 이미 렌더링된 UI를 업데이트하기 위해 Composable 함수를 다시 실행하고 UI 트리를 업데이트하는 프로세스입니다.
+상태 변경이 발생했을 때 이미 렌더링된 UI를 업데이트하기 위해 Composable 함수를 다시 실행하고 UI 트리를 업데이트하는 프로세스입니다. [[collectAsState, collectAsStateWithLifecycle]]을 통해 Flow를 Compose State로 변환할 때 Recomposition이 트리거됩니다.
 
 ### 트리거 조건
 

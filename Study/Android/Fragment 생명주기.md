@@ -1,11 +1,13 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-07
 topic: Android
 ---
 
 - Fragment의 생명주기와 각 콜백 메서드의 역할
+- onCreateView와 onViewCreated가 분리된 이유
 - Activity와 Fragment의 생명주기 관계
 - viewLifecycleOwner의 중요성과 메모리 누수 방지
+- context와 requireContext의 차이점
 - FragmentManager와 childFragmentManager의 차이
 - Fragment 트랜잭션과 백스택 관리
 
@@ -13,7 +15,7 @@ topic: Android
 
 ## 개요
 
-Fragment는 자체적인 생명주기를 가지면서도 호스팅하는 부모 Activity의 생명주기에 종속되어 동작하는 컴포넌트입니다. Activity와 유사하지만 Fragment만의 고유한 콜백이 존재합니다.
+Fragment는 자체적인 생명주기를 가지면서도 호스팅하는 부모 [[Activity Lifecycle|Activity의 생명주기]]에 종속되어 동작하는 컴포넌트입니다. Activity와 유사하지만 Fragment만의 고유한 콜백이 존재합니다.
 
 ---
 
@@ -94,6 +96,19 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 }
 ```
 
+#### onCreateView와 onViewCreated가 분리된 이유
+
+두 메서드는 명확히 다른 목적을 가집니다.
+
+| 메서드 | 역할 | 반환 |
+|--------|------|------|
+| `onCreateView()` | 레이아웃 인플레이션, 루트 View 반환 | `View?` |
+| `onViewCreated()` | 뷰 초기화, 리스너 설정, LiveData 관찰 | 없음 |
+
+- `onCreateView()`는 뷰 계층 구조를 **생성**하는 데만 집중합니다
+- `onViewCreated()`는 뷰가 완전히 생성된 것이 **보장된 시점**이므로, 안전하게 뷰를 조작할 수 있습니다
+- 뷰 생성 로직과 뷰 초기화 로직을 분리하여 **단일 책임 원칙**을 지킵니다
+
 ### 활성 단계
 
 #### onStart()
@@ -125,7 +140,7 @@ Fragment의 뷰 계층 구조가 제거될 때 호출됩니다. **메모리 누�
 ```kotlin
 override fun onDestroyView() {
     super.onDestroyView()
-    _binding = null  // ViewBinding 정리
+    _binding = null  // [[ViewBinding]] 정리
 }
 ```
 
@@ -233,6 +248,47 @@ supportFragmentManager.beginTransaction()
 
 ---
 
+## context와 requireContext
+
+Fragment에서 Context를 얻는 두 가지 방법입니다.
+
+| 메서드 | 반환 타입 | null일 때 동작 |
+|--------|----------|---------------|
+| `context` (getContext) | `Context?` | null 반환 |
+| `requireContext()` | `Context` | `IllegalStateException` 발생 |
+
+### context (Nullable)
+
+Fragment가 Activity에 연결되지 않았거나 분리된 상태에서는 null을 반환할 수 있으므로 null 체크가 필요합니다.
+
+```kotlin
+// null 체크 필요
+context?.let {
+    Toast.makeText(it, "메시지", Toast.LENGTH_SHORT).show()
+}
+```
+
+### requireContext (Non-null)
+
+Fragment가 Activity에 붙어 있음이 확실한 생명주기 시점(onViewCreated 등)에서 사용합니다.
+
+```kotlin
+// onViewCreated에서 안전하게 사용
+override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    val adapter = UserAdapter(requireContext())
+}
+```
+
+### 선택 기준
+
+- `onAttach()` ~ `onDetach()` 사이 생명주기에서는 `requireContext()` 사용 가능
+- 비동기 콜백 등 생명주기가 보장되지 않는 곳에서는 `context` (null 체크) 사용
+- `requireContext()`는 Fragment가 분리된 상태에서 호출 시 앱이 크래시될 수 있으므로 주의
+
+---
+
 ## 백스택 관리
 
 `addToBackStack()`을 호출하면 사용자가 뒤로 가기 버튼을 눌렀을 때 이전 Fragment 상태로 돌아갈 수 있습니다.
@@ -255,9 +311,11 @@ supportFragmentManager.beginTransaction()
 ## 정리
 
 - Fragment 생명주기: onAttach → onCreate → onCreateView → onViewCreated → onStart → onResume → onPause → onStop → onDestroyView → onDestroy → onDetach
+- onCreateView/onViewCreated 분리: 뷰 생성(인플레이션)과 뷰 초기화(리스너, 관찰) 역할 분리
 - Activity 종속성: Fragment는 호스팅 Activity의 생명주기에 영향을 받음
 - viewLifecycleOwner: 뷰의 생명주기를 나타내며, LiveData 관찰 시 필수 사용
 - onDestroyView: ViewBinding 등 뷰 관련 리소스 정리 필수
+- context vs requireContext: context는 Nullable, requireContext는 Non-null (IllegalStateException)
 - FragmentManager: Fragment 트랜잭션 관리, childFragmentManager는 중첩 Fragment용
 - 백스택: addToBackStack()으로 이전 상태 복원 가능
 

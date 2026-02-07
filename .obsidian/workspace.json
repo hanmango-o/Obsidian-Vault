@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "32fe3edacc3a0ddf",
+        "id": "ee8cc560db2fe4ad",
         "type": "tabs",
         "children": [
           {
-            "id": "a98af253ef2ef810",
+            "id": "7b8f6a8d2f91e7df",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -205,21 +205,27 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "a98af253ef2ef810",
+  "active": "7b8f6a8d2f91e7df",
   "lastOpenFiles": [
+    "Study/Android/Jetpack ViewModel.md",
+    "Study/Android/ViewBinding.md",
+    "Study/Android/Kotlin Coroutines.md",
+    "Study/Android/Intent.md",
+    "Study/Android/RecyclerView.md",
+    "2026-02-02.md",
+    "Study/Android/Flow.collect & Flow.collectLatest.md",
+    "Study/Android/Android View 생명주기.md",
+    "Study/Android/StateFlow, SharedFlow, Channel.md",
     "Study/Android/Service.md",
     "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
     "Study/Android/Activity Lifecycle.md",
     "Study/Android/Android 4대 컴포넌트.md",
-    "Study/Android/ViewBinding.md",
     "Study/Android/Fragment 생명주기.md",
     "Study/Android/Context.md",
     "Study/Android/lifecycleScope, viewModelScope, GlobalScope.md",
     "Study/Android/Configuration Changes.md",
     "Storage/manifest-android-interview-kr.pdf",
-    "Study/Android/StateFlow, SharedFlow, Channel.md",
     "Study/Android/Recomposition, Stability.md",
-    "Study/Android/Flow.collect & Flow.collectLatest.md",
     "Study/Android/BroadcastReceiver.md",
     "Study/Android/App Architecture.md",
     "Study/Android/아카이브.zip",
@@ -230,11 +236,6 @@
     "copilot/copilot-custom-prompts/Explain like I am 5.md",
     "copilot/copilot-custom-prompts/Generate table of contents.md",
     "copilot/copilot-custom-prompts/Remove URLs.md",
-    "copilot/copilot-custom-prompts/Translate to Chinese.md",
-    "copilot/copilot-custom-prompts/Summarize.md",
-    "copilot/copilot-custom-prompts/Make longer.md",
-    "copilot/copilot-custom-prompts/Emojify.md",
-    "copilot/copilot-conversations/이_부분@20260117_172124.md",
     "copilot/copilot-conversations",
     "copilot/copilot-custom-prompts",
     "copilot",

@@ -23,7 +23,7 @@ topic: Android
 
 ### Cold Flow
 
-수집기(collector)가 구독을 시작할 때까지 비활성 상태를 유지합니다.
+수집기(collector)가 구독을 시작할 때까지 비활성 상태를 유지합니다. Flow에 대한 자세한 내용은 [[Kotlin Coroutines]]를 참고합니다.
 
 ```kotlin
 val coldFlow = flow {
@@ -249,7 +249,7 @@ flowchart TD
 
 ## Flow 변환: stateIn, shareIn
 
-Cold Flow를 Hot Flow로 변환합니다.
+Cold Flow를 Hot Flow로 변환합니다. 수집 방법에 대해서는 [[Flow.collect & Flow.collectLatest]]와 [[collectAsState, collectAsStateWithLifecycle]]을 참고합니다.
 
 ### stateIn
 

@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-07
 topic: Android
 ---
 
@@ -146,15 +146,77 @@ registerReceiver(receiver, filter)
 
 ## ContentProvider
 
-애플리케이션 간에 데이터를 안전하게 공유하기 위한 표준 인터페이스를 제공합니다.
+애플리케이션 간에 구조화된 데이터를 안전하게 공유하기 위한 **중앙 저장소 및 표준 인터페이스**를 제공합니다. 데이터 접근 로직을 캡슐화하여 내부 구조(SQLite, 파일 등)를 노출하지 않고 데이터를 제공합니다.
 
 ### 특징
 
 - 데이터베이스, 파일 시스템 등을 추상화
 - URI를 통해 데이터에 접근 (쿼리, 삽입, 수정, 삭제)
 - `ContentResolver`를 중개자로 사용
+- 앱 간 데이터 공유를 위한 표준 인터페이스
 
-### 데이터 접근 방식
+### URI 구조
+
+```
+content://com.example.myapp.provider/users/42
+  │              │                    │     │
+  scheme     authority              path   id
+```
+
+| 구성 요소 | 설명 | 예시 |
+|----------|------|------|
+| scheme | 항상 `content://` | `content://` |
+| authority | 공급자 식별자 | `com.example.myapp.provider` |
+| path | 데이터 유형 지정 | `users` |
+| id | 특정 항목 참조 (선택) | `42` |
+
+### CRUD 메서드
+
+ContentProvider를 구현할 때 오버라이드해야 하는 메서드입니다.
+
+```kotlin
+class MyContentProvider : ContentProvider() {
+
+    override fun onCreate(): Boolean {
+        // 초기화 (DB 헬퍼 생성 등)
+        return true
+    }
+
+    override fun query(
+        uri: Uri, projection: Array<String>?,
+        selection: String?, selectionArgs: Array<String>?,
+        sortOrder: String?
+    ): Cursor? {
+        // 데이터 조회
+        return database.query(tableName, projection, selection, selectionArgs, null, null, sortOrder)
+    }
+
+    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+        // 데이터 삽입
+        val id = database.insert(tableName, null, values)
+        return ContentUris.withAppendedId(uri, id)
+    }
+
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<String>?): Int {
+        // 데이터 수정
+        return database.update(tableName, values, selection, selectionArgs)
+    }
+
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<String>?): Int {
+        // 데이터 삭제
+        return database.delete(tableName, selection, selectionArgs)
+    }
+
+    override fun getType(uri: Uri): String? {
+        // MIME 타입 반환
+        return "vnd.android.cursor.dir/vnd.com.example.users"
+    }
+}
+```
+
+### ContentResolver와의 관계
+
+외부 앱은 ContentProvider에 직접 접근하지 않고 **ContentResolver를 중개자**로 사용합니다. ContentResolver가 URI를 기반으로 적절한 공급자를 찾아 요청을 전달합니다.
 
 ```kotlin
 // ContentResolver를 통한 데이터 조회
@@ -162,21 +224,29 @@ val cursor = contentResolver.query(
     ContactsContract.Contacts.CONTENT_URI,
     null, null, null, null
 )
+
+// ContentResolver를 통한 데이터 삽입
+val values = ContentValues().apply {
+    put("name", "홍길동")
+    put("email", "hong@example.com")
+}
+contentResolver.insert(MyProvider.CONTENT_URI, values)
 ```
 
 ### 생명주기
 
-`onCreate()` 메서드를 통해 초기화되며, 시스템이 필요할 때까지 유지됩니다.
+`onCreate()` 메서드를 통해 초기화되며, 시스템이 필요할 때까지 유지됩니다. Application의 `onCreate()` 보다 먼저 호출됩니다.
 
 ### 사용 사례
 
 - 주소록 데이터 공유
 - 미디어 파일(사진, 동영상) 접근 제공
-- Firebase SDK의 자동 초기화
+- Firebase SDK의 자동 초기화 (ContentProvider의 onCreate를 활용)
+- 앱 간 설정 데이터 공유
 
 ---
 
-## 컴포넌트 간 통신: Intent
+## 컴포넌트 간 통신: [[Intent]]
 
 Intent는 Activity, Service, BroadcastReceiver 간의 통신을 담당하는 메시징 객체입니다.
 
@@ -218,7 +288,7 @@ startActivity(intent)
 - Activity: 사용자와 상호작용하는 UI 화면
 - Service: UI 없이 백그라운드 작업 수행, 메인 스레드에서 동작
 - BroadcastReceiver: 시스템/앱 이벤트 수신 및 응답
-- ContentProvider: 앱 간 데이터 공유를 위한 표준 인터페이스
+- ContentProvider: 앱 간 데이터 공유를 위한 표준 인터페이스, URI 기반 CRUD, ContentResolver가 중개
 - Intent: 컴포넌트 간 통신을 담당하는 메시징 객체
 - 모든 컴포넌트는 AndroidManifest.xml에 등록 필요
 

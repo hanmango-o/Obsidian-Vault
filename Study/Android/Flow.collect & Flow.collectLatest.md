@@ -13,7 +13,7 @@ topic: Android
 
 ## 개요
 
-Kotlin Flow에서 데이터를 수집할 때 사용하는 `collect`와 `collectLatest`는 새로운 데이터가 발행되었을 때 기존 작업을 어떻게 처리하느냐에 따라 동작 방식이 달라집니다.
+[[Kotlin Coroutines|Kotlin Flow]]에서 데이터를 수집할 때 사용하는 `collect`와 `collectLatest`는 새로운 데이터가 발행되었을 때 기존 작업을 어떻게 처리하느냐에 따라 동작 방식이 달라집니다.
 
 ---
 
@@ -195,7 +195,7 @@ viewLifecycleOwner.lifecycleScope.launch {
 
 ## Android 생명주기와 안전한 수집
 
-단순히 `collect`나 `collectLatest`를 사용하는 것만으로는 Android 생명주기를 인지하지 못합니다. UI가 백그라운드로 갔을 때 불필요한 수집을 막으려면 **`repeatOnLifecycle`** 블록 내부에서 수집해야 합니다.
+단순히 `collect`나 `collectLatest`를 사용하는 것만으로는 Android 생명주기를 인지하지 못합니다. Compose에서는 [[collectAsState, collectAsStateWithLifecycle]]을 사용합니다. UI가 백그라운드로 갔을 때 불필요한 수집을 막으려면 **`repeatOnLifecycle`** 블록 내부에서 수집해야 합니다.
 
 ### repeatOnLifecycle 패턴
 

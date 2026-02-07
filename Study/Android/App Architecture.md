@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-07
 topic: Android
 ---
 
@@ -14,7 +14,7 @@ topic: Android
 
 ## 개요
 
-Android 앱 아키텍처는 코드의 유지보수성, 확장성, 테스트 용이성을 높이기 위해 **관심사 분리(Separation of Concerns)** 원칙을 기반으로 설계됩니다. Google이 권장하는 계층화된 아키텍처와 **단방향 데이터 흐름(UDF)**을 채택하는 것이 일반적입니다.
+Android 앱 아키텍처는 코드의 유지보수성, 확장성, 테스트 용이성을 높이기 위해 **관심사 분리(Separation of Concerns)** 원칙을 기반으로 설계됩니다. [[Jetpack ViewModel]], [[Kotlin Coroutines|코루틴]], [[StateFlow, SharedFlow, Channel|StateFlow]] 등이 핵심 구성 요소입니다. Google이 권장하는 계층화된 아키텍처와 **단방향 데이터 흐름(UDF)**을 채택하는 것이 일반적입니다.
 
 ---
 
@@ -210,18 +210,71 @@ flowchart LR
 - 디버깅 용이
 
 ```kotlin
-// MVI Intent
+// MVI Intent (사용자 의도)
 sealed interface MainIntent {
     data class LoadUser(val userId: String) : MainIntent
     object Refresh : MainIntent
 }
 
-// MVI State
+// MVI State (단일 불변 상태)
 data class MainState(
     val isLoading: Boolean = false,
     val user: User? = null,
     val error: String? = null
 )
+```
+
+### MVI 상세 구현
+
+```kotlin
+// ViewModel - Intent를 받아 State를 생성
+class MainViewModel(
+    private val getUserUseCase: GetUserUseCase
+) : ViewModel() {
+
+    private val _uiState = MutableStateFlow(MainState())
+    val uiState: StateFlow<MainState> = _uiState.asStateFlow()
+
+    fun handleIntent(intent: MainIntent) {
+        when (intent) {
+            is MainIntent.LoadUser -> loadUser(intent.userId)
+            is MainIntent.Refresh -> refresh()
+        }
+    }
+
+    private fun loadUser(userId: String) {
+        viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true, error = null) }
+            getUserUseCase(userId)
+                .onSuccess { user ->
+                    _uiState.update { it.copy(isLoading = false, user = user) }
+                }
+                .onFailure { error ->
+                    _uiState.update { it.copy(isLoading = false, error = error.message) }
+                }
+        }
+    }
+
+    private fun refresh() {
+        _uiState.value.user?.let { user ->
+            loadUser(user.id)
+        }
+    }
+}
+```
+
+```kotlin
+// Composable - State를 관찰하고 Intent를 전달
+@Composable
+fun MainScreen(viewModel: MainViewModel = viewModel()) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    MainContent(
+        state = uiState,
+        onLoadUser = { viewModel.handleIntent(MainIntent.LoadUser(it)) },
+        onRefresh = { viewModel.handleIntent(MainIntent.Refresh) }
+    )
+}
 ```
 
 ### Clean Architecture
@@ -237,6 +290,19 @@ data class MainState(
 - 외부 계층이 내부 계층에 의존
 - Domain Layer는 프레임워크에 독립적
 - 테스트 용이성 극대화
+
+### 구글 권장 아키텍처 vs 클린 아키텍처
+
+| 구분 | 구글 권장 아키텍처 | 클린 아키텍처 |
+|------|-----------------|-------------|
+| 중심 | Android 프레임워크(AAC)와 통합 | 비즈니스 로직(Domain)의 독립성 |
+| Domain Layer | 선택적 (복잡할 때만) | 필수 (핵심 계층) |
+| 의존성 방향 | UI → Data (Domain 선택적) | 외부 → 내부 (엄격하게 분리) |
+| Entity | Data Layer에 포함 | Domain Layer에 독립적으로 존재 |
+| 프레임워크 의존 | ViewModel, LiveData 등 AAC 사용 권장 | Domain은 프레임워크에 독립 |
+| 적합한 프로젝트 | 대부분의 Android 앱 | 대규모, 멀티 플랫폼, 엄격한 테스트 필요 |
+
+**구글 권장 아키텍처**는 실용적 접근으로 Android 개발에 최적화되어 있으며, **클린 아키텍처**는 비즈니스 로직의 완전한 분리를 통해 테스트 용이성과 유지보수성을 극대화합니다.
 
 ---
 
@@ -363,7 +429,8 @@ fun `getUserWithPosts returns combined data`() = runTest {
 - Domain Layer: 복잡한 비즈니스 로직 캡슐화 (UseCase)
 - Data Layer: 데이터 접근 추상화 (Repository + DataSource)
 - MVVM: 관찰 가능한 상태로 UI 업데이트, Android에 최적화
-- MVI: 단일 불변 상태, 상태 전이 명확
+- MVI: 단일 불변 상태(UiState), Intent로 사용자 의도 전달, 상태 전이 명확
+- 구글 권장 vs 클린: 구글은 AAC 통합 최적화, 클린은 Domain 독립성 강조
 - UDF: 상태는 아래로, 이벤트는 위로 흐름
 - 테스트 용이성: DI, Stateless 컴포넌트, 계층 분리
 

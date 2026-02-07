@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-07
 topic: Android
 ---
 
@@ -7,6 +7,7 @@ topic: Android
 - Application Context와 Activity Context의 차이점
 - 상황별 올바른 Context 선택 가이드
 - Context 잘못 사용으로 인한 메모리 누수 문제와 해결 방법
+- ViewModel에서 Context 참조가 안 좋은 이유와 AndroidViewModel
 - ContextWrapper와 BaseContext의 개념
 
 ---
@@ -182,6 +183,42 @@ class MyHandler(activity: Activity) : Handler(Looper.getMainLooper()) {
 
 ---
 
+## ViewModel에서 Context 참조가 안 좋은 이유
+
+[[Jetpack ViewModel|ViewModel]]은 [[Configuration Changes|Configuration Change]]에서도 파괴되지 않고 유지됩니다. 만약 ViewModel이 Activity Context를 참조하면, Activity가 소멸되더라도 가비지 컬렉터가 메모리를 회수할 수 없어 **메모리 누수**가 발생합니다.
+
+```kotlin
+// 잘못된 예 - 메모리 누수
+class BadViewModel(private val context: Context) : ViewModel() {
+    // Activity가 재생성되어도 이전 Activity Context를 계속 참조
+}
+```
+
+### AndroidViewModel 사용
+
+Context가 반드시 필요하면 `AndroidViewModel`을 사용합니다. Application Context를 포함하여 메모리 누수 위험이 없습니다.
+
+```kotlin
+class SafeViewModel(application: Application) : AndroidViewModel(application) {
+
+    fun loadData() {
+        val context = getApplication<Application>()
+        val prefs = context.getSharedPreferences("prefs", Context.MODE_PRIVATE)
+    }
+}
+```
+
+### Hilt를 통한 안전한 주입
+
+```kotlin
+@HiltViewModel
+class MyViewModel @Inject constructor(
+    @ApplicationContext private val context: Context
+) : ViewModel()
+```
+
+---
+
 ## ContextWrapper와 BaseContext
 
 ### ContextWrapper
@@ -256,6 +293,7 @@ class MyActivity : Activity() {
 - Application Context: 앱 전체 수명, 싱글톤/전역 리소스에 사용
 - Activity Context: Activity 수명, UI 관련 작업에 사용
 - 메모리 누수: 정적 변수에 Activity Context 저장 금지, Application Context 사용
+- ViewModel + Context: Activity Context 참조 시 메모리 누수, AndroidViewModel 또는 Hilt 사용
 - ContextWrapper: Context를 감싸서 동작 수정/확장
 - BaseContext: ContextWrapper가 래핑한 원본 Context
 

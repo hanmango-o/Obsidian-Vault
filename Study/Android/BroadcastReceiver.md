@@ -13,7 +13,7 @@ topic: Android
 
 ## 개요
 
-BroadcastReceiver는 Android 시스템이나 다른 앱에서 전달하는 시스템 전체의 메시지를 수신하고 응답할 수 있게 해주는 컴포넌트입니다. 앱이 백그라운드에서 계속 실행되지 않고도 동적인 이벤트에 반응할 수 있어 시스템 리소스를 효율적으로 절약합니다.
+BroadcastReceiver는 Android 시스템이나 다른 앱에서 전달하는 시스템 전체의 메시지를 수신하고 응답할 수 있게 해주는 [[Android 4대 컴포넌트|컴포넌트]]입니다. 앱이 백그라운드에서 계속 실행되지 않고도 동적인 이벤트에 반응할 수 있어 시스템 리소스를 효율적으로 절약합니다.
 
 ---
 
@@ -224,7 +224,7 @@ class EventBus {
 
 브로드캐스트가 전송된 후에도 시스템에 남아 있어, 나중에 등록된 리시버도 최신 상태값을 확인할 수 있는 방식이었으나 **보안 문제로 deprecated** 되었습니다.
 
-대체: `SharedPreferences`, `DataStore`, `StateFlow` 사용
+대체: `SharedPreferences`, `DataStore`, [[StateFlow, SharedFlow, Channel|StateFlow]] 사용
 
 ---
 
