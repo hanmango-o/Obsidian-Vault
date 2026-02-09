@@ -207,6 +207,13 @@
   },
   "active": "7b8f6a8d2f91e7df",
   "lastOpenFiles": [
+    "Study/Android/Build/Android Build Process.md",
+    "Study/Android/Build/APK vs AAB.md",
+    "Study/Android/Build/ProGuard.md",
+    "Study/Android/Build/Build Variant.md",
+    "Study/Android/Build/AndroidManifest.md",
+    "Study/Android/Build/Gradle.md",
+    "Study/Android/Build/Dalvik VM.md",
     "Study/Android/Build",
     "Study/Android/Async/Kotlin Flow.md",
     "Study/Android/Kotlin Coroutines.md",
@@ -227,21 +234,14 @@
     "Study/Android/Basic/Context.md",
     "Study/Android/Basic/Intent.md",
     "Study/Android/Basic/Fragment 생명주기.md",
-    "Study/Android/Basic/Activity Lifecycle.md",
-    "Study/Android/Basic/Android 4대 컴포넌트.md",
     "Study/Android/Async",
     "Study/Android/Architecture",
     "Study/Android/UI/XML",
     "Study/Android/UI/Compose",
     "Study/Android/UI",
     "Study/Android/Basic",
-    "Study/Android/collectAsState, collectAsStateWithLifecycle.md",
-    "Study/Android/Jetpack ViewModel.md",
-    "Study/Android/ViewBinding.md",
-    "Study/Android/Intent.md",
     "Storage/manifest-android-interview-kr.pdf",
     "Study/Android/아카이브.zip",
-    "Storage",
-    "copilot/copilot-conversations"
+    "Storage"
   ]
 }
