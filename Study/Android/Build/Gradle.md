@@ -22,10 +22,10 @@ Gradle은 Android의 공식 빌드 자동화 도구입니다. 소스 코드를 �
 
 - 소스 코드 컴파일 및 리소스 패키징
 - 의존성(라이브러리) 관리 및 다운로드
-- APK/AAB 파일 생성
-- 코드 난독화 및 최적화 (R8/ProGuard)
+- [[APK vs AAB|APK/AAB]] 파일 생성
+- 코드 난독화 및 최적화 ([[ProGuard|R8/ProGuard]])
 - 앱 서명 (signing)
-- Build Variant 관리
+- [[Build Variant]] 관리
 
 ---
 

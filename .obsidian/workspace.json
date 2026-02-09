@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
+                "file": "Study/Android/Build/AndroidManifest.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Flow.collect & Flow.collectLatest"
+              "title": "AndroidManifest"
             }
           }
         ]
@@ -154,13 +154,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
+                "file": "Study/Android/Build/AndroidManifest.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Flow.collect & Flow.collectLatest 의 개요"
+              "title": "AndroidManifest 의 개요"
             }
           },
           {
@@ -184,7 +184,7 @@
             }
           }
         ],
-        "currentTab": 6
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -207,33 +207,33 @@
   },
   "active": "7b8f6a8d2f91e7df",
   "lastOpenFiles": [
-    "Study/Android/Build/Android Build Process.md",
-    "Study/Android/Build/APK vs AAB.md",
-    "Study/Android/Build/ProGuard.md",
+    "Study/Android/Async/Kotlin Coroutines.md",
+    "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
+    "Study/Android/Async/Handler와 Looper.md",
+    "Study/Android/Architecture/MVVM vs MVI.md",
+    "Study/Android/Architecture/Dependency Injection.md",
+    "Study/Android/Async/ANR.md",
+    "Study/Android/Basic/Task와 BackStack.md",
+    "Study/Android/Async/Android Main Thread.md",
+    "Study/Android/Basic/Activity Result API.md",
+    "Study/Android/Basic/Activity 데이터 전달.md",
+    "Study/Android/Build/Dalvik VM.md",
     "Study/Android/Build/Build Variant.md",
+    "Study/Android/Build/APK vs AAB.md",
+    "Study/Android/Build/Android Build Process.md",
+    "Study/Android/Build/ProGuard.md",
     "Study/Android/Build/AndroidManifest.md",
     "Study/Android/Build/Gradle.md",
-    "Study/Android/Build/Dalvik VM.md",
     "Study/Android/Build",
     "Study/Android/Async/Kotlin Flow.md",
     "Study/Android/Kotlin Coroutines.md",
-    "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
     "Study/Android/Async/StateFlow, SharedFlow, Channel.md",
     "Study/Android/Async/lifecycleScope, viewModelScope, GlobalScope.md",
-    "Study/Android/Async/Kotlin Coroutines.md",
     "Study/Android/Architecture/Jetpack ViewModel.md",
     "Study/Android/Architecture/App Architecture.md",
     "Study/Android/UI/Compose/collectAsState, collectAsStateWithLifecycle.md",
     "Study/Android/UI/Compose/Recomposition, Stability.md",
     "Study/Android/UI/XML/ViewBinding.md",
-    "Study/Android/UI/XML/RecyclerView.md",
-    "Study/Android/UI/XML/Android View 생명주기.md",
-    "Study/Android/Basic/BroadcastReceiver.md",
-    "Study/Android/Basic/Service.md",
-    "Study/Android/Basic/Configuration Changes.md",
-    "Study/Android/Basic/Context.md",
-    "Study/Android/Basic/Intent.md",
-    "Study/Android/Basic/Fragment 생명주기.md",
     "Study/Android/Async",
     "Study/Android/Architecture",
     "Study/Android/UI/XML",

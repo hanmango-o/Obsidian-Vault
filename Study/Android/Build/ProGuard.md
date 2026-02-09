@@ -73,7 +73,7 @@ class a {
 
 ## 설정 방법
 
-`build.gradle`에서 활성화합니다.
+[[Gradle|build.gradle]]에서 활성화합니다.
 
 ```kotlin
 android {

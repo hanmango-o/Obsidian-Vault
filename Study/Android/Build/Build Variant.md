@@ -25,7 +25,7 @@ Build Variant = Build Type × Product Flavor
 
 ## Build Type
 
-앱을 **어떻게 빌드할지** 정의합니다. 기본적으로 `debug`와 `release` 두 가지가 제공됩니다.
+앱을 **어떻게 빌드할지** 정의합니다. 기본적으로 `debug`와 `release` 두 가지가 [[Gradle]]에 의해 제공됩니다.
 
 ```kotlin
 android {

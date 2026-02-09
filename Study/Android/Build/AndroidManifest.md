@@ -24,7 +24,7 @@ topic: Android/Build
 
 ### 4대 컴포넌트 선언
 
-앱에서 사용하는 모든 컴포넌트를 등록해야 시스템이 인식합니다.
+앱에서 사용하는 모든 [[Android 4대 컴포넌트|컴포넌트]]를 등록해야 시스템이 인식합니다.
 
 ```xml
 <application
@@ -75,7 +75,7 @@ topic: Android/Build
 
 ### Intent Filter
 
-컴포넌트가 어떤 암시적 인텐트에 응답할지 정의합니다.
+컴포넌트가 어떤 암시적 [[Intent|인텐트]]에 응답할지 정의합니다.
 
 ```xml
 <activity android:name=".ShareActivity">
@@ -113,7 +113,7 @@ topic: Android/Build
     android:targetSdkVersion="34" />
 ```
 
-현재는 대부분 `build.gradle`에서 설정하며, Manifest의 값은 빌드 시 덮어씌워집니다.
+현재는 대부분 [[Gradle|build.gradle]]에서 설정하며, Manifest의 값은 빌드 시 덮어씌워집니다.
 
 ---
 

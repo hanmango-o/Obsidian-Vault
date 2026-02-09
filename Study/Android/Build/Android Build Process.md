@@ -15,7 +15,7 @@ topic: Android/Build
 
 ## 전체 빌드 프로세스 개요
 
-Android 빌드는 소스 코드를 실행 가능한 APK 또는 AAB로 변환하는 과정입니다.
+Android 빌드는 소스 코드를 실행 가능한 [[APK vs AAB|APK 또는 AAB]]로 변환하는 과정입니다. [[Gradle]]이 이 전체 과정을 자동화합니다.
 
 ```mermaid
 flowchart TD
@@ -47,14 +47,14 @@ Java/Kotlin 소스 코드를 JVM 바이트코드(.class)로 변환합니다.
 
 ### 2단계: DEX 변환
 
-JVM 바이트코드를 Android 런타임(ART)에 최적화된 DEX 바이트코드로 변환합니다.
+JVM 바이트코드를 Android 런타임([[Dalvik VM|ART]])에 최적화된 DEX 바이트코드로 변환합니다.
 
 ```
 .class 파일들 → [D8 컴파일러] → classes.dex
 ```
 
 - **D8**: 기본 DEX 변환 도구
-- **R8**: D8 + 코드 축소 + 난독화 + 최적화 (Release 빌드 시)
+- **R8**: D8 + [[ProGuard|코드 축소 + 난독화]] + 최적화 (Release 빌드 시)
 - 메서드 수가 65,536개를 초과하면 **MultiDex**로 여러 `.dex` 파일 생성
 
 ### 3단계: 리소스 컴파일
@@ -84,7 +84,7 @@ DEX 파일, 컴파일된 리소스, 네이티브 라이브러리(.so), 에셋을
 | res/ | 리소스 파일 |
 | lib/ | NDK 네이티브 라이브러리 |
 | assets/ | 에셋 파일 |
-| AndroidManifest.xml | Manifest 병합 |
+| [[AndroidManifest|AndroidManifest.xml]] | Manifest 병합 |
 
 ### 5단계: 서명 (Signing)
 
