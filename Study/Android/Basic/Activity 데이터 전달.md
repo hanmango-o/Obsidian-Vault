@@ -150,6 +150,7 @@ startActivity(intent)
 
 // 수신
 val user = intent.getParcelableExtra<User>("user")
+
 ```
 
 ---
