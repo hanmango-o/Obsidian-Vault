@@ -45,6 +45,7 @@ ex. 파일 제목 : Activity 생명주기
 
 ```yaml
 ---
+createdAt: YYYY-MM-DD
 modified: YYYY-MM-DD
 topic: 주제
 ---
