@@ -1,13 +1,15 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-17
 topic: Android/Basic
 ---
 
 - Service의 개념과 역할
 - Started Service, Bound Service, Foreground Service의 차이점
 - 각 서비스 유형별 생명주기
+- IntentService의 개념과 일반 Service와의 차이
 - Service가 메인 스레드에서 실행되는 것의 의미와 주의사항
-- WorkManager와의 비교 및 적절한 사용 시점
+- WorkManager의 용도, 제약 조건, 사용법
+- Service vs WorkManager 선택 기준
 
 ---
 
@@ -159,6 +161,58 @@ class ForegroundService : Service() {
 
 ---
 
+## IntentService
+
+IntentService는 **워커 스레드에서 작업을 순차적으로 처리**하고, 모든 작업이 완료되면 자동으로 종료되는 Service입니다.
+
+> IntentService는 Android 11(API 30)에서 **deprecated** 되었으며, [[Kotlin Coroutines|코루틴]]이나 WorkManager 사용이 권장됩니다.
+
+### 일반 Service와의 차이
+
+| 구분 | Service | IntentService |
+|------|---------|---------------|
+| 실행 스레드 | 메인 스레드 | 별도 워커 스레드 |
+| 요청 처리 | 동시 처리 가능 | 순차 처리 (큐 방식) |
+| 종료 | `stopSelf()` 수동 호출 | 모든 요청 처리 후 자동 종료 |
+| 핵심 메서드 | `onStartCommand()` | `onHandleIntent()` |
+| 상태 | deprecated 아님 | API 30에서 deprecated |
+
+### 동작 원리
+
+```mermaid
+flowchart LR
+    A[Intent 1] --> B[큐]
+    C[Intent 2] --> B
+    D[Intent 3] --> B
+    B --> E[워커 스레드에서 순차 처리]
+    E --> F[모든 작업 완료 → 자동 종료]
+```
+
+### 대안: 코루틴을 사용한 Service
+
+```kotlin
+class MyService : Service() {
+    private val scope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        scope.launch {
+            performWork()
+            stopSelf(startId)
+        }
+        return START_NOT_STICKY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        scope.cancel()
+    }
+
+    override fun onBind(intent: Intent?): IBinder? = null
+}
+```
+
+---
+
 ## 메인 스레드에서 실행
 
 **Service는 기본적으로 메인 스레드(UI 스레드)에서 실행됩니다.**
@@ -197,26 +251,111 @@ class MyService : Service() {
 
 ---
 
-## WorkManager와의 비교
+## WorkManager
 
-| 구분 | Service | WorkManager |
-|------|---------|-------------|
-| 실행 시점 | 즉시 실행 | 조건 충족 시 실행 |
+WorkManager는 **앱이 종료되거나 기기가 재부팅되어도 반드시 실행되어야 하는 영구적인 백그라운드 작업**에 적합한 Jetpack 라이브러리입니다.
+
+### 주요 특징
+
+| 특징 | 설명 |
+|------|------|
+| 영구성 | 앱 종료, 기기 재부팅 후에도 작업 보장 |
+| 제약 조건 | 네트워크, 충전, 저장 공간 등 조건 설정 가능 |
+| 재시도 | 실패 시 자동 재시도 (백오프 정책) |
+| 체이닝 | 여러 작업을 순차/병렬로 연결 |
+| 관찰 가능 | LiveData/Flow로 작업 상태 관찰 |
+
+### Worker 정의
+
+```kotlin
+class UploadWorker(
+    appContext: Context,
+    workerParams: WorkerParameters
+) : Worker(appContext, workerParams) {
+
+    override fun doWork(): Result {
+        val data = inputData.getString("file_path") ?: return Result.failure()
+
+        return try {
+            uploadFile(data)
+            Result.success()
+        } catch (e: Exception) {
+            Result.retry()  // 재시도
+        }
+    }
+}
+```
+
+### 작업 Result
+
+| 결과 | 동작 |
+|------|------|
+| `Result.success()` | 작업 성공, 체인의 다음 작업 실행 |
+| `Result.failure()` | 작업 실패, 체인 중단 |
+| `Result.retry()` | 백오프 정책에 따라 재시도 |
+
+### 제약 조건 (Constraints)
+
+```kotlin
+val constraints = Constraints.Builder()
+    .setRequiredNetworkType(NetworkType.CONNECTED)  // 네트워크 필요
+    .setRequiresCharging(true)                      // 충전 중일 때만
+    .setRequiresStorageNotLow(true)                 // 저장 공간 충분
+    .setRequiresBatteryNotLow(true)                 // 배터리 충분
+    .build()
+```
+
+### 작업 요청 타입
+
+```kotlin
+// 일회성 작업
+val oneTimeRequest = OneTimeWorkRequestBuilder<UploadWorker>()
+    .setConstraints(constraints)
+    .setInputData(workDataOf("file_path" to "/path/to/file"))
+    .setInitialDelay(10, TimeUnit.MINUTES)  // 10분 후 실행
+    .build()
+
+WorkManager.getInstance(context).enqueue(oneTimeRequest)
+
+// 반복 작업 (최소 15분 간격)
+val periodicRequest = PeriodicWorkRequestBuilder<SyncWorker>(
+    1, TimeUnit.HOURS  // 1시간마다 반복
+).setConstraints(constraints)
+ .build()
+
+WorkManager.getInstance(context).enqueueUniquePeriodicWork(
+    "sync_work",
+    ExistingPeriodicWorkPolicy.KEEP,
+    periodicRequest
+)
+```
+
+### 작업 상태 관찰
+
+```kotlin
+WorkManager.getInstance(context)
+    .getWorkInfoByIdLiveData(workRequest.id)
+    .observe(this) { workInfo ->
+        when (workInfo.state) {
+            WorkInfo.State.ENQUEUED -> { /* 대기 중 */ }
+            WorkInfo.State.RUNNING -> { /* 실행 중 */ }
+            WorkInfo.State.SUCCEEDED -> { /* 성공 */ }
+            WorkInfo.State.FAILED -> { /* 실패 */ }
+            WorkInfo.State.CANCELLED -> { /* 취소됨 */ }
+            else -> {}
+        }
+    }
+```
+
+### Service vs WorkManager 선택 기준
+
+| 구분 | Foreground Service | WorkManager |
+|------|-------------------|-------------|
+| 실행 시점 | 즉시, 실시간 | 조건 충족 시 (지연 가능) |
 | 재부팅 후 | 별도 처리 필요 | 자동 유지 |
-| 조건부 실행 | 직접 구현 | 네트워크, 충전 등 조건 지원 |
-| 사용 사례 | 실시간 서비스 | 예약 작업, 지연 가능 작업 |
-
-### Service 사용이 적합한 경우
-
-- 음악 재생
-- 위치 추적
-- 실시간 통신
-
-### WorkManager 사용이 적합한 경우
-
-- 서버 데이터 동기화
-- 로그 업로드
-- 이미지 처리
+| 사용자 인지 | 알림으로 인지 | 백그라운드에서 조용히 |
+| 적합한 작업 | 음악 재생, 위치 추적, 실시간 통신 | 데이터 동기화, 로그 업로드, 이미지 처리 |
+| 실행 보장 | 실행 중 높은 우선순위 | 완료를 보장 |
 
 ---
 
@@ -237,8 +376,10 @@ class MyService : Service() {
 - Started Service: 독립적으로 실행, 명시적 종료 필요
 - Bound Service: 클라이언트와 상호작용, 모든 클라이언트 언바인드 시 종료
 - Foreground Service: 알림 필수, 시스템 종료 가능성 낮음
+- IntentService: 워커 스레드에서 순차 처리, 자동 종료, API 30에서 deprecated
 - 메인 스레드 실행: 무거운 작업은 코루틴/별도 스레드 필수
-- WorkManager: 즉시 실행이 필요 없는 예약 작업에 권장
+- WorkManager: 앱 종료/재부팅에도 작업 보장, 제약 조건/재시도/체이닝 지원
+- 선택 기준: 실시간 → Foreground Service, 지연 가능 → WorkManager
 
 ---
 
