@@ -1,10 +1,11 @@
 ---
-modified: 2026-02-07
+modified: 2026-02-16
 topic: Android/Architecture
 ---
 
 - Jetpack ViewModel의 개념과 역할
 - ViewModel의 생명주기와 Activity/Fragment와의 관계
+- Activity/Fragment 라이프사이클 각 단계에서 ViewModel의 상태
 - ViewModelStore와 ViewModelStoreOwner의 내부 동작 원리
 - Configuration Change에서 ViewModel이 상태를 유지하는 메커니즘
 - LifecycleOwner와 ViewModelStoreOwner의 차이
@@ -34,6 +35,57 @@ flowchart TD
     G --> H[ViewModel.onCleared]
     H --> I[ViewModel 소멸]
 ```
+
+### Activity 라이프사이클과 ViewModel
+
+```mermaid
+sequenceDiagram
+    participant AL as Activity Lifecycle
+    participant VM as ViewModel
+
+    AL->>VM: onCreate → ViewModel 최초 생성 (또는 기존 재사용)
+    Note over VM: 데이터 로딩 시작 가능
+    AL->>AL: onStart
+    AL->>AL: onResume
+    Note over AL: 화면 회전 발생
+    AL->>AL: onPause
+    AL->>AL: onStop
+    AL->>AL: onDestroy (isChangingConfigurations = true)
+    Note over VM: ViewModel 유지됨
+    AL->>AL: onCreate (새 Activity 인스턴스)
+    AL->>VM: 기존 ViewModel 재사용
+    Note over AL: 사용자가 finish()
+    AL->>AL: onDestroy (isChangingConfigurations = false)
+    AL->>VM: onCleared() 호출
+    Note over VM: ViewModel 소멸
+```
+
+#### 핵심 포인트
+
+- **ViewModel은 Activity보다 오래 살 수 있습니다.** Configuration Change 시 Activity는 소멸/재생성되지만, ViewModel은 유지됩니다.
+- ViewModel에서 비동기 작업을 시작하면, Activity가 재생성되어도 작업이 중단되지 않습니다. `viewModelScope`이 `onCleared()`까지 유지되기 때문입니다.
+- `onCleared()`는 Activity가 **영구적으로** 소멸될 때(뒤로가기, `finish()`)만 호출됩니다.
+
+### Fragment 라이프사이클과 ViewModel
+
+Fragment에서 ViewModel을 사용할 때는 스코프에 따라 동작이 달라집니다.
+
+| 생성 방식 | 스코프 | 생존 범위 |
+|-----------|--------|-----------|
+| `by viewModels()` | Fragment | Fragment `onDestroy()`까지 |
+| `by activityViewModels()` | Activity | Activity `onDestroy()`까지 |
+
+```kotlin
+class ListFragment : Fragment() {
+    // Fragment 스코프 - 이 Fragment가 소멸되면 함께 소멸
+    private val listViewModel: ListViewModel by viewModels()
+
+    // Activity 스코프 - Fragment 간 데이터 공유, Activity 소멸 시 함께 소멸
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+}
+```
+
+Fragment가 백스택에 들어가면 `onDestroyView()`까지만 호출되고 `onDestroy()`는 호출되지 않으므로, `by viewModels()`로 생성한 ViewModel도 유지됩니다. 뒤로 가기로 복원 시 기존 데이터를 그대로 사용할 수 있습니다.
 
 ---
 
@@ -225,7 +277,9 @@ class MyViewModel @Inject constructor(
 
 ## 정리
 
-- ViewModel: UI 상태 관리 및 비즈니스 로직 처리, Configuration Change에서도 데이터 유지
+- ViewModel: UI 상태 관리 및 비즈니스 로직 처리, Activity보다 오래 생존 가능
+- Activity와 ViewModel: Configuration Change 시 Activity 소멸/재생성, ViewModel 유지, finish() 시 onCleared()
+- Fragment와 ViewModel: viewModels()는 Fragment 스코프, activityViewModels()는 Activity 스코프, 백스택 시 ViewModel 유지
 - ViewModelStore: `Map<String, ViewModel>` 형태의 ViewModel 컨테이너
 - ViewModelStoreOwner: ViewModelStore를 소유하는 인터페이스 (Activity, Fragment)
 - 상태 유지 메커니즘: `isChangingConfigurations()` 체크로 Configuration Change 시 ViewModelStore 보존

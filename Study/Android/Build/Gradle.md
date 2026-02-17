@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-02-10
-modified: 2026-02-10
+modified: 2026-02-16
 topic: Android/Build
 ---
 
@@ -11,6 +11,7 @@ topic: Android/Build
 - settings.gradle의 역할
 - 주요 Gradle 설정 항목
 - Gradle Wrapper의 개념
+- kapt와 ksp의 차이, 빌드 퍼포먼스 비교
 
 ---
 
@@ -166,6 +167,91 @@ Gradle Wrapper는 프로젝트에 포함된 Gradle 실행 스크립트입니다.
 
 ---
 
+## kapt vs KSP
+
+### 어노테이션 프로세서란
+
+Room, Hilt, Moshi 등의 라이브러리는 어노테이션(`@Entity`, `@HiltViewModel` 등)을 기반으로 컴파일 타임에 코드를 자동 생성합니다. 이를 처리하는 도구가 어노테이션 프로세서입니다.
+
+### kapt (Kotlin Annotation Processing Tool)
+
+kapt는 Kotlin 코드를 **Java 스텁(stub)**으로 변환한 뒤, Java의 어노테이션 프로세싱 API(JSR 269)를 활용하여 코드를 생성합니다.
+
+```kotlin
+plugins {
+    id("org.jetbrains.kotlin.kapt")
+}
+
+dependencies {
+    kapt("com.google.dagger:hilt-compiler:2.48")
+}
+```
+
+#### 빌드 과정
+
+```
+Kotlin 소스 → Java 스텁 생성 → Java AP 실행 → 코드 생성
+```
+
+#### 성능 문제
+
+- **Java 스텁 생성 오버헤드**: Kotlin 소스 전체를 Java로 변환하는 과정이 추가됨
+- **증분 빌드 지원 제한**: 일부 프로세서만 증분 처리 가능, 대부분 전체 재처리
+- **Kotlin 타입 정보 손실**: Java 스텁 변환 과정에서 Kotlin 고유 타입(sealed class, data class 등) 정보 유실
+
+### KSP (Kotlin Symbol Processing)
+
+KSP는 Kotlin 컴파일러 플러그인으로 동작하며, **Java 스텁 생성 없이** Kotlin 코드를 직접 분석합니다.
+
+```kotlin
+plugins {
+    id("com.google.devtools.ksp")
+}
+
+dependencies {
+    ksp("com.google.dagger:hilt-compiler:2.48")
+}
+```
+
+#### 빌드 과정
+
+```
+Kotlin 소스 → KSP가 직접 심볼 분석 → 코드 생성
+```
+
+#### 성능 이점
+
+- **스텁 생성 생략**: Java 변환 단계가 없어 빌드 시간 단축
+- **증분 빌드 지원**: 변경된 파일만 재처리하여 증분 빌드 효율적
+- **Kotlin 네이티브**: sealed class, data class 등 Kotlin 고유 타입 정보 완전 보존
+
+### 빌드 퍼포먼스 비교
+
+| 항목 | kapt | KSP |
+|------|------|-----|
+| 스텁 생성 | 필요 (Java 스텁) | 불필요 |
+| 증분 빌드 | 제한적 | 완전 지원 |
+| 빌드 속도 | 느림 | kapt 대비 약 2배 빠름 |
+| Kotlin 타입 지원 | Java 스텁 변환으로 정보 손실 | 완전 지원 |
+| 메모리 사용량 | 높음 | 낮음 |
+| 라이브러리 호환 | 대부분 지원 | Room, Moshi, Hilt 등 주요 라이브러리 지원 |
+
+### 마이그레이션
+
+kapt에서 KSP로 전환할 때는 의존성 선언만 변경하면 됩니다.
+
+```kotlin
+// Before (kapt)
+kapt("androidx.room:room-compiler:2.6.1")
+
+// After (KSP)
+ksp("androidx.room:room-compiler:2.6.1")
+```
+
+> KSP를 지원하는 라이브러리가 점차 늘어나고 있으며, kapt는 유지보수 모드로 전환되었습니다. 신규 프로젝트에서는 KSP 사용이 권장됩니다.
+
+---
+
 ## 주요 Gradle 명령어
 
 | 명령어 | 설명 |
@@ -186,6 +272,9 @@ Gradle Wrapper는 프로젝트에 포함된 Gradle 실행 스크립트입니다.
 - 계층 분리 이유: 관심사 분리, 중복 제거, 독립적 빌드, 유지보수성 향상
 - settings.gradle: 프로젝트에 포함할 모듈 정의
 - Gradle Wrapper: 팀 간 Gradle 버전 통일 보장
+- kapt: Java 스텁 생성 후 AP 실행, 스텁 생성 오버헤드로 빌드 느림
+- KSP: Kotlin 코드 직접 분석, 스텁 생성 불필요, kapt 대비 약 2배 빠름
+- kapt → KSP 마이그레이션: 의존성 선언만 변경, kapt는 유지보수 모드
 
 ---
 

@@ -1,10 +1,11 @@
 ---
-modified: 2026-02-07
+modified: 2026-02-16
 topic: Android/Basic
 ---
 
 - 명시적 인텐트와 암시적 인텐트의 차이점
 - Intent Filter의 구성과 동작 원리
+- 암시적 인텐트에서 크래시가 발생하는 상황과 해결 방법
 - Activity 결과를 받는 방법 (ActivityResultLauncher)
 - Launch Mode의 종류와 동작 (standard, singleTop, singleTask, singleInstance)
 - Intent Flag를 통한 Launch Mode 설정
@@ -60,6 +61,64 @@ startActivity(Intent.createChooser(intent, "공유하기"))
 | 대상 지정 | 클래스 이름 직접 지정 | 액션/데이터로 간접 지정 |
 | 사용 범위 | 앱 내부 | 앱 내부 + 외부 앱 |
 | 사용 사례 | 화면 전환 | 브라우저, 전화, 공유 |
+
+### 암시적 인텐트의 크래시와 해결 방법
+
+암시적 인텐트를 처리할 수 있는 앱이 기기에 없으면 `ActivityNotFoundException`이 발생하여 앱이 크래시됩니다.
+
+```kotlin
+// 크래시 발생 가능한 코드
+val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:37.5665,126.9780"))
+startActivity(intent)  // 지도 앱이 없으면 ActivityNotFoundException
+```
+
+#### 해결 방법 1: resolveActivity()
+
+`startActivity()` 호출 전에 처리 가능한 앱이 있는지 확인합니다.
+
+```kotlin
+val intent = Intent(Intent.ACTION_VIEW, Uri.parse("geo:37.5665,126.9780"))
+if (intent.resolveActivity(packageManager) != null) {
+    startActivity(intent)
+} else {
+    Toast.makeText(this, "지도 앱이 설치되어 있지 않습니다", Toast.LENGTH_SHORT).show()
+}
+```
+
+> Android 11(API 30) 이상에서는 패키지 가시성 제한으로 인해, `resolveActivity()`가 정상 동작하려면 [[AndroidManifest]]에 `<queries>` 선언이 필요합니다.
+
+```xml
+<manifest>
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="geo" />
+        </intent>
+    </queries>
+</manifest>
+```
+
+#### 해결 방법 2: try-catch
+
+```kotlin
+try {
+    startActivity(intent)
+} catch (e: ActivityNotFoundException) {
+    Toast.makeText(this, "처리할 수 있는 앱이 없습니다", Toast.LENGTH_SHORT).show()
+}
+```
+
+#### 해결 방법 3: createChooser()
+
+`Intent.createChooser()`를 사용하면 처리할 앱이 없을 때 크래시 대신 시스템 다이얼로그를 표시합니다.
+
+```kotlin
+val intent = Intent(Intent.ACTION_SEND).apply {
+    type = "text/plain"
+    putExtra(Intent.EXTRA_TEXT, "공유할 내용")
+}
+startActivity(Intent.createChooser(intent, "공유하기"))
+```
 
 ---
 
@@ -301,6 +360,7 @@ flowchart BT
 
 - 명시적 인텐트: 대상 컴포넌트 직접 지정, 앱 내부 화면 전환
 - 암시적 인텐트: 액션 선언, 시스템이 적절한 앱 선택
+- 암시적 인텐트 크래시: 처리할 앱 없으면 ActivityNotFoundException 발생, resolveActivity()/try-catch/createChooser()로 방지
 - Intent Filter: 컴포넌트가 처리 가능한 액션/카테고리/데이터 명시
 - ActivityResultLauncher: registerForActivityResult()로 타입 안전한 결과 수신
 - Launch Mode: standard(기본), singleTop(최상단 재사용), singleTask(Task 내 1개), singleInstance(독립 Task)

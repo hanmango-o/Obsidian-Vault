@@ -1,13 +1,14 @@
 ---
-modified: 2026-02-07
+modified: 2026-02-16
 topic: Android/Basic
 ---
 
 - Fragment의 생명주기와 각 콜백 메서드의 역할
 - onCreateView와 onViewCreated가 분리된 이유
 - Activity와 Fragment의 생명주기 관계
+- ViewBinding 객체를 Nullable하게 만들어야 하는 이유
 - viewLifecycleOwner의 중요성과 메모리 누수 방지
-- context와 requireContext의 차이점
+- context와 requireContext의 차이, Context가 Null이 되는 상황
 - FragmentManager와 childFragmentManager의 차이
 - Fragment 트랜잭션과 백스택 관리
 
@@ -144,6 +145,57 @@ override fun onDestroyView() {
 }
 ```
 
+### ViewBinding 객체를 Nullable하게 만들어야 하는 이유
+
+Fragment에서 [[ViewBinding]]을 사용할 때 `_binding` 변수를 반드시 Nullable로 선언하고 `onDestroyView()`에서 null로 설정해야 합니다.
+
+```kotlin
+class MyFragment : Fragment() {
+
+    private var _binding: FragmentMyBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMyBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null  // 반드시 해제
+    }
+}
+```
+
+#### 이유: Fragment와 View의 생명주기 불일치
+
+Fragment의 생명주기와 View의 생명주기는 **동일하지 않습니다.** Fragment는 살아있지만 View가 파괴된 상태가 존재합니다.
+
+```mermaid
+flowchart TD
+    A[Fragment 생성] --> B[onCreateView → View 생성]
+    B --> C[View 활성 상태]
+    C --> D[onDestroyView → View 파괴]
+    D --> E{Fragment 소멸?}
+    E -->|백스택| F["Fragment 살아있음<br/>(View 없음)"]
+    F --> B
+    E -->|완전 소멸| G[onDestroy]
+```
+
+**핵심 시나리오: 백스택**
+
+1. Fragment A → Fragment B로 `replace()` + `addToBackStack()`
+2. Fragment A의 `onDestroyView()` 호출 → **View 파괴**, 하지만 Fragment는 살아있음
+3. 뒤로 가기 → Fragment A의 `onCreateView()` 다시 호출 → **새 View 생성**
+
+이 상태에서 Binding을 null로 해제하지 않으면:
+
+- **메모리 누수**: 파괴된 View 계층 구조를 Binding 객체가 계속 참조
+- **잘못된 View 접근**: 새 View가 생성되었음에도 이전 View를 참조할 수 있음
+
 #### onDestroy()
 
 Fragment 자체가 소멸될 때 호출되며, 모든 리소스를 최종 정리합니다.
@@ -250,7 +302,7 @@ supportFragmentManager.beginTransaction()
 
 ## context와 requireContext
 
-Fragment에서 Context를 얻는 두 가지 방법입니다.
+Fragment에서 [[Context]]를 얻는 두 가지 방법입니다.
 
 | 메서드 | 반환 타입 | null일 때 동작 |
 |--------|----------|---------------|
@@ -281,11 +333,55 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 }
 ```
 
+### Fragment에서 Context가 Null이 되는 상황
+
+Fragment의 `getContext()`는 내부적으로 호스트 Activity의 참조를 반환합니다. 다음 상황에서 null이 됩니다.
+
+#### 1. onAttach() 이전
+
+Fragment가 아직 Activity에 연결되지 않은 상태입니다.
+
+```kotlin
+class MyFragment : Fragment() {
+    // 이 시점에서 context는 null
+    val prefs = context?.getSharedPreferences("prefs", Context.MODE_PRIVATE)  // null
+}
+```
+
+#### 2. onDetach() 이후
+
+Fragment가 Activity에서 완전히 분리된 후입니다.
+
+#### 3. 비동기 콜백 내부
+
+비동기 작업이 완료되었을 때 이미 Fragment가 분리된 경우입니다. 이것이 가장 흔한 실수입니다.
+
+```kotlin
+// 위험한 코드
+viewLifecycleOwner.lifecycleScope.launch {
+    val data = withContext(Dispatchers.IO) { fetchData() }
+    // 이 시점에 Fragment가 분리되었을 수 있음
+    // lifecycleScope 덕분에 보통 안전하지만, 일반 콜백은 위험
+}
+
+// 위험한 예: 일반 콜백
+api.fetchData(object : Callback {
+    override fun onSuccess(data: Data) {
+        // Fragment가 이미 detach되었을 수 있음
+        requireContext()  // 크래시 가능!
+        context?.let { /* 안전 */ }
+    }
+})
+```
+
 ### 선택 기준
 
-- `onAttach()` ~ `onDetach()` 사이 생명주기에서는 `requireContext()` 사용 가능
-- 비동기 콜백 등 생명주기가 보장되지 않는 곳에서는 `context` (null 체크) 사용
-- `requireContext()`는 Fragment가 분리된 상태에서 호출 시 앱이 크래시될 수 있으므로 주의
+| 상황 | 추천 방법 |
+|------|-----------|
+| `onAttach()` ~ `onDetach()` 생명주기 콜백 내부 | `requireContext()` |
+| `onViewCreated()` 등 뷰 생명주기 내부 | `requireContext()` |
+| 비동기 콜백, 딜레이 후 실행 | `context?.let { }` |
+| Fragment 생성자, 프로퍼티 초기화 | 사용 불가 (null) |
 
 ---
 
@@ -314,8 +410,10 @@ supportFragmentManager.beginTransaction()
 - onCreateView/onViewCreated 분리: 뷰 생성(인플레이션)과 뷰 초기화(리스너, 관찰) 역할 분리
 - Activity 종속성: Fragment는 호스팅 Activity의 생명주기에 영향을 받음
 - viewLifecycleOwner: 뷰의 생명주기를 나타내며, LiveData 관찰 시 필수 사용
+- ViewBinding Nullable: Fragment와 View의 생명주기 불일치, 백스택 시 View만 파괴되므로 Binding 해제 필수
 - onDestroyView: ViewBinding 등 뷰 관련 리소스 정리 필수
 - context vs requireContext: context는 Nullable, requireContext는 Non-null (IllegalStateException)
+- Context가 Null인 상황: onAttach 이전, onDetach 이후, 비동기 콜백에서 Fragment 분리 시
 - FragmentManager: Fragment 트랜잭션 관리, childFragmentManager는 중첩 Fragment용
 - 백스택: addToBackStack()으로 이전 상태 복원 가능
 

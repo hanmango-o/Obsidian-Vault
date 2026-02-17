@@ -1,12 +1,14 @@
 ---
-modified: 2026-02-02
+modified: 2026-02-16
 topic: Android/Async
 ---
 
 - Cold Flow와 Hot Flow의 차이점
 - StateFlow의 개념, 특징, 사용 사례
-- SharedFlow의 개념, replay/buffer 설정
+- StateFlow의 conflation 동작과 equality 기반 중복 필터링
+- SharedFlow의 개념, replay/buffer 설정, BufferOverflow 전략
 - Channel의 특징과 일회성 이벤트 처리
+- Channel의 produce 빌더와 Fan-out/Fan-in 패턴
 - 언제 어떤 것을 사용해야 하는지 선택 기준
 - stateIn, shareIn을 통한 Flow 변환
 
@@ -88,6 +90,35 @@ class UserViewModel : ViewModel() {
 val currentState = viewModel.uiState.value
 ```
 
+### Conflation과 Equality 기반 중복 필터링
+
+StateFlow는 내부적으로 `equals()`를 사용하여 이전 값과 동일한 값의 방출을 차단합니다. 이를 **conflation**이라 합니다.
+
+```kotlin
+val stateFlow = MutableStateFlow(User("Kim", 25))
+
+// 같은 값을 다시 할당해도 collector에게 전달되지 않음
+stateFlow.value = User("Kim", 25)  // equals()가 true → 무시
+
+// data class가 아닌 경우 참조 비교이므로 주의
+class RegularUser(val name: String)
+val flow = MutableStateFlow(RegularUser("Kim"))
+flow.value = RegularUser("Kim")  // 다른 인스턴스 → 방출됨
+```
+
+**주의사항:**
+- `data class`를 사용하면 구조적 동등성(structural equality)으로 비교
+- 일반 클래스는 참조 동등성(referential equality)으로 비교되어 같은 내용이어도 방출됨
+- 리스트나 맵의 내부 요소만 변경하면 같은 참조이므로 변경이 감지되지 않음 → **새 인스턴스를 생성**해야 함
+
+```kotlin
+// 잘못된 예 - 변경 감지 안 됨
+_uiState.value.items.add(newItem)  // 같은 리스트 참조
+
+// 올바른 예 - 새 리스트 생성
+_uiState.update { it.copy(items = it.items + newItem) }
+```
+
 ### 사용 사례
 
 - UI 상태 관리 (로딩, 에러, 성공)
@@ -132,6 +163,27 @@ private val _events = MutableSharedFlow<Event>(
 | 0 (기본값) | 구독 시점 이후 값만 수신 |
 | 1 | 마지막 1개 값도 수신 (StateFlow와 유사) |
 | N | 마지막 N개 값 수신 |
+
+### BufferOverflow 전략
+
+| 전략 | 동작 |
+|------|------|
+| `SUSPEND` (기본값) | 버퍼가 가득 차면 emit이 일시 중단 |
+| `DROP_OLDEST` | 버퍼가 가득 차면 가장 오래된 값 삭제 |
+| `DROP_LATEST` | 버퍼가 가득 차면 새로 방출된 값 삭제 |
+
+```kotlin
+// DROP_OLDEST 사용 시 emit이 suspend되지 않아 tryEmit도 사용 가능
+private val _events = MutableSharedFlow<Event>(
+    extraBufferCapacity = 1,
+    onBufferOverflow = BufferOverflow.DROP_OLDEST
+)
+
+// tryEmit: suspend 함수가 아닌 곳에서도 호출 가능
+fun sendEvent(event: Event) {
+    _events.tryEmit(event)  // 버퍼가 가득 차도 가장 오래된 값 삭제
+}
+```
 
 ### emit
 
@@ -198,6 +250,50 @@ viewLifecycleOwner.lifecycleScope.launch {
         }
     }
 }
+```
+
+### produce 빌더
+
+`produce`는 코루틴 빌더로, Channel을 생성하면서 동시에 값을 보내는 코루틴을 시작합니다.
+
+```kotlin
+fun CoroutineScope.produceNumbers(): ReceiveChannel<Int> = produce {
+    var x = 1
+    while (true) {
+        send(x++)
+        delay(1000)
+    }
+}
+
+// 사용
+val numbers = produceNumbers()
+numbers.consumeEach { println(it) }
+```
+
+### Fan-out과 Fan-in
+
+**Fan-out**: 하나의 Channel에서 여러 코루틴이 소비합니다. 각 값은 하나의 소비자만 수신합니다.
+
+```kotlin
+val channel = Channel<Int>()
+
+// 여러 소비자가 나누어 처리
+repeat(3) { id ->
+    launch {
+        for (value in channel) {
+            println("Worker $id received $value")
+        }
+    }
+}
+```
+
+**Fan-in**: 여러 코루틴이 하나의 Channel에 값을 보냅니다.
+
+```kotlin
+val channel = Channel<String>()
+
+launch { channel.send("A") }
+launch { channel.send("B") }
 ```
 
 ### 사용 사례
@@ -297,9 +393,10 @@ SharingStarted.WhileSubscribed(5_000)
 
 - Cold Flow: 수집 시 데이터 생성, 독립적 스트림
 - Hot Flow: 수집 여부와 관계없이 데이터 생성, 공유 스트림
-- StateFlow: 상태 관리용, 초기값 필수, 최신값 항상 유지, 중복 무시
-- SharedFlow: 이벤트 스트림 공유, replay/buffer 설정 가능
-- Channel: 1:1 통신, 값 소비 후 제거, 일회성 이벤트에 적합
+- StateFlow: 상태 관리용, 초기값 필수, 최신값 항상 유지, equals() 기반 중복 무시
+- StateFlow conflation: data class 사용 권장, 리스트 변경 시 새 인스턴스 생성 필요
+- SharedFlow: 이벤트 스트림 공유, replay/buffer 설정 가능, BufferOverflow 전략 지원
+- Channel: 1:1 통신, 값 소비 후 제거, 일회성 이벤트에 적합, produce 빌더로 생성 가능
 - stateIn/shareIn: Cold Flow를 Hot Flow로 변환
 - WhileSubscribed(5_000): 화면 회전 시 데이터 재로딩 방지
 
