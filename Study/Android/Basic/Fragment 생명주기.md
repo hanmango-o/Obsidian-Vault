@@ -246,7 +246,7 @@ override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 ## FragmentManager
 
-FragmentManager는 Fragment의 추가, 제거, 교체 등의 작업을 관리하는 시스템입니다.
+FragmentManager는 Fragment의 추가, 제거, 교체 등의 작업을 관리하는 시스템입니다. Fragment 간 데이터 전달에도 사용됩니다. ([[Fragment 데이터 전달]] 참고)
 
 | 유형 | 용도 | 접근 방법 |
 |------|------|-----------|

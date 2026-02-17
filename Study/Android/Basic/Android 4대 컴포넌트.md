@@ -65,7 +65,7 @@ flowchart TD
 
 ---
 
-## Service
+## [[Service]]
 
 UI 없이 백그라운드에서 장기적인 작업을 수행하는 컴포넌트입니다.
 

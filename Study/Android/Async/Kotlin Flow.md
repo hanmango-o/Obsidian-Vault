@@ -439,7 +439,7 @@ numbersFlow
 
 단순히 `collect`를 호출하면 앱이 백그라운드로 가도 수집이 계속되어 **리소스 낭비**가 발생합니다.
 
-### View 시스템: repeatOnLifecycle
+### View 시스템: [[LifecycleOwner와 LifecycleObserver|repeatOnLifecycle]]
 
 ```kotlin
 class NewsFragment : Fragment() {

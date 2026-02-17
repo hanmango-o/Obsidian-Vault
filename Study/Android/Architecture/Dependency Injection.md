@@ -80,7 +80,7 @@ assertEquals("John", repository.getUser(1).name)
 
 ## Android 주요 DI 프레임워크
 
-### Hilt (Google 공식 권장)
+### [[Hilt]] (Google 공식 권장)
 
 Dagger 2를 기반으로 한 Android 전용 DI 라이브러리입니다.
 

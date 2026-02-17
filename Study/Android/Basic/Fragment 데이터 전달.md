@@ -17,7 +17,7 @@ topic: Android/Basic
 
 ### arguments (Bundle)
 
-Fragment 생성 시 `arguments`에 Bundle을 설정하여 데이터를 전달합니다. 이는 [[Configuration Changes|Configuration Change]] 시에도 데이터가 보존됩니다.
+[[Fragment 생명주기|Fragment]] 생성 시 `arguments`에 Bundle을 설정하여 데이터를 전달합니다. 이는 [[Configuration Changes|Configuration Change]] 시에도 데이터가 보존됩니다.
 
 ```kotlin
 // Activity에서 Fragment 생성 시 데이터 전달
@@ -79,7 +79,7 @@ class MyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {  // [[LifecycleOwner와 LifecycleObserver|viewLifecycleOwner]]
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 sharedViewModel.data.collect { data ->
                     // UI 업데이트
@@ -158,11 +158,11 @@ parentFragmentManager.setFragmentResult("childKey", bundleOf("data" to "value"))
 
 ### SharedViewModel
 
-Fragment 간 실시간 데이터 공유에는 Activity 스코프의 ViewModel이 적합합니다.
+Fragment 간 실시간 데이터 공유에는 Activity 스코프의 [[Jetpack ViewModel|ViewModel]]이 적합합니다.
 
 ```kotlin
 class SharedViewModel : ViewModel() {
-    private val _selectedItem = MutableStateFlow<Item?>(null)
+    private val _selectedItem = MutableStateFlow<Item?>(null)  // [[StateFlow, SharedFlow, Channel|StateFlow]]
     val selectedItem: StateFlow<Item?> = _selectedItem.asStateFlow()
 
     fun selectItem(item: Item) {
@@ -218,7 +218,7 @@ Fragment는 시스템이 **자동으로 재생성**할 수 있어야 합니다. 
 
 - [[Configuration Changes|Configuration Change]] (화면 회전)
 - 메모리 부족으로 프로세스 종료 후 복원
-- 백스택에서 복원
+- [[Task와 BackStack|백스택]]에서 복원
 
 ### 시스템의 Fragment 재생성 과정
 

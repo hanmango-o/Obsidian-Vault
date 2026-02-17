@@ -86,7 +86,7 @@ class UserViewModel(
 
 ## lifecycleScope
 
-Activity나 Fragment의 LifecycleOwner에 연결된 스코프입니다.
+Activity나 Fragment의 [[LifecycleOwner와 LifecycleObserver|LifecycleOwner]]에 연결된 스코프입니다.
 
 ### 특징
 

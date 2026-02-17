@@ -155,7 +155,7 @@ flowchart TD
 
 ### LifecycleOwner
 
-Activity나 Fragment의 생명주기 상태를 나타내는 `Lifecycle` 인스턴스를 보유합니다. LiveData, [[Kotlin Coroutines|Flow]] 수집 등이 이를 관찰하여 생명주기에 맞게 동작합니다.
+Activity나 Fragment의 생명주기 상태를 나타내는 `Lifecycle` 인스턴스를 보유합니다. LiveData, [[Kotlin Coroutines|Flow]] 수집 등이 이를 관찰하여 생명주기에 맞게 동작합니다. ([[LifecycleOwner와 LifecycleObserver]] 참고)
 
 ```kotlin
 interface LifecycleOwner {
@@ -250,7 +250,7 @@ class MyViewModel(application: Application) : AndroidViewModel(application) {
 | 접근 방식 | 설명 |
 |-----------|------|
 | AndroidViewModel | Application Context 필요 시 |
-| Hilt @ApplicationContext | DI를 통한 Context 주입 |
+| [[Hilt]] @ApplicationContext | DI를 통한 Context 주입 |
 | Repository 패턴 | Context 의존성을 Data Layer로 이동 |
 
 ```kotlin

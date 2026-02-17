@@ -119,7 +119,7 @@ lifecycleScope.launch {
 }
 ```
 
-`lifecycleScope.launch`는 `onDestroy()`까지 취소되지 않으므로, 앱이 백그라운드에 있어도 Flow 수집이 계속됩니다. 이는 불필요한 리소스 소모와 잠재적인 크래시를 유발합니다.
+[[lifecycleScope, viewModelScope, GlobalScope|lifecycleScope]].launch는 `onDestroy()`까지 취소되지 않으므로, 앱이 백그라운드에 있어도 Flow 수집이 계속됩니다. 이는 불필요한 리소스 소모와 잠재적인 크래시를 유발합니다. [[Kotlin Flow|Flow]]를 안전하게 수집하려면 `repeatOnLifecycle`을 사용해야 합니다.
 
 ### 올바른 방법: repeatOnLifecycle
 
@@ -206,7 +206,7 @@ viewLifecycleOwner.lifecycleScope.launch {
 | `lifecycleScope.launch { collect }` | 계속 수집 (위험) | 사용 비권장 |
 | `repeatOnLifecycle(STARTED)` | 중단/재개 (안전) | Activity, Fragment |
 | `flowWithLifecycle` | 중단/재개 (안전) | 단일 Flow 수집 |
-| `collectAsStateWithLifecycle` | 중단/재개 (안전) | Jetpack Compose |
+| [[collectAsState, collectAsStateWithLifecycle|collectAsStateWithLifecycle]] | 중단/재개 (안전) | Jetpack Compose |
 
 ---
 

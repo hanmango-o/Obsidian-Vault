@@ -215,12 +215,12 @@ class MyService : Service() {
 
 ## 메인 스레드에서 실행
 
-**Service는 기본적으로 메인 스레드(UI 스레드)에서 실행됩니다.**
+**Service는 기본적으로 [[Android Main Thread|메인 스레드(UI 스레드)]]에서 실행됩니다.**
 
 ### 문제점
 
 - 네트워크 요청이나 복잡한 계산을 직접 수행하면 메인 스레드 차단
-- ANR(Application Not Responding) 오류 발생 가능
+- [[ANR]](Application Not Responding) 오류 발생 가능
 
 ### 해결책
 
@@ -360,6 +360,8 @@ WorkManager.getInstance(context)
 ---
 
 ## Manifest 등록
+
+모든 Service는 [[AndroidManifest]]에 등록해야 합니다.
 
 ```xml
 <service

@@ -31,7 +31,7 @@ topic: Android/UI/XML
 
 - `LinearLayout`, `FrameLayout`, `ConstraintLayout` 등
 - 자식 뷰의 **크기 측정**과 **위치 배치**를 담당
-- 터치 이벤트의 자식 전달 및 가로채기(intercept) 기능
+- [[터치 이벤트 처리|터치 이벤트]]의 자식 전달 및 가로채기(intercept) 기능
 
 | 구분 | View | ViewGroup |
 |------|------|-----------|

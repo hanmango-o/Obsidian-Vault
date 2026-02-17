@@ -20,6 +20,8 @@ Hilt는 Dagger 2를 기반으로 한 Android 전용 [[Dependency Injection|의�
 
 ### 필수 설정
 
+[[Gradle|build.gradle.kts]]에 다음과 같이 설정합니다.
+
 ```kotlin
 // build.gradle.kts (Project)
 plugins {
@@ -76,7 +78,7 @@ class MyFragment : Fragment() {
 }
 ```
 
-지원 대상: Activity, Fragment, View, Service, BroadcastReceiver
+지원 대상: [[Activity Lifecycle|Activity]], [[Fragment 생명주기|Fragment]], [[Android View 생명주기|View]], [[Service]], [[BroadcastReceiver]]
 
 ### @HiltViewModel
 
@@ -205,7 +207,7 @@ flowchart TD
 | 컴포넌트 | 생성 시점 | 소멸 시점 | 스코프 |
 |---------|----------|----------|--------|
 | `SingletonComponent` | Application.onCreate() | Application 소멸 | `@Singleton` |
-| `ActivityRetainedComponent` | Activity.onCreate() | Activity.onDestroy() (Configuration Change에서 유지) | `@ActivityRetainedScoped` |
+| `ActivityRetainedComponent` | Activity.onCreate() | Activity.onDestroy() ([[Configuration Changes|Configuration Change]]에서 유지) | `@ActivityRetainedScoped` |
 | `ViewModelComponent` | ViewModel 생성 | ViewModel.onCleared() | `@ViewModelScoped` |
 | `ActivityComponent` | Activity.onCreate() | Activity.onDestroy() | `@ActivityScoped` |
 | `FragmentComponent` | Fragment.onAttach() | Fragment.onDestroy() | `@FragmentScoped` |
@@ -311,6 +313,8 @@ class UserRepository @Inject constructor(
 ---
 
 ## Context 주입
+
+[[Context|@ApplicationContext와 @ActivityContext]]를 사용하여 적절한 Context를 주입받을 수 있습니다.
 
 ```kotlin
 @HiltViewModel
