@@ -16,8 +16,21 @@
               "icon": "lucide-git-fork",
               "title": "그래프 뷰"
             }
+          },
+          {
+            "id": "f15d67bb6fe7380b",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.11.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "릴리즈 노트 1.11.7"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -200,8 +213,11 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "7b8f6a8d2f91e7df",
+  "active": "f15d67bb6fe7380b",
   "lastOpenFiles": [
+    "Study/Android/Basic/Configuration Changes.md",
+    "Study/Android/Async/Android Main Thread.md",
+    "Study/Android/Async/Handler와 Looper.md",
     "Study/Android/Architecture/Hilt.md",
     "Study/Android/Architecture/LifecycleOwner와 LifecycleObserver.md",
     "Study/Android/Basic/Fragment 데이터 전달.md",
@@ -210,12 +226,10 @@
     "Study/Android/Build/AndroidManifest.md",
     "Study/Android/Async/Kotlin Coroutines.md",
     "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
-    "Study/Android/Async/Handler와 Looper.md",
     "Study/Android/Architecture/MVVM vs MVI.md",
     "Study/Android/Architecture/Dependency Injection.md",
     "Study/Android/Async/ANR.md",
     "Study/Android/Basic/Task와 BackStack.md",
-    "Study/Android/Async/Android Main Thread.md",
     "Study/Android/Basic/Activity Result API.md",
     "Study/Android/Build/Dalvik VM.md",
     "Study/Android/Build/Build Variant.md",
@@ -228,7 +242,6 @@
     "Study/Android/Kotlin Coroutines.md",
     "Study/Android/Async/StateFlow, SharedFlow, Channel.md",
     "Study/Android/Async/lifecycleScope, viewModelScope, GlobalScope.md",
-    "Study/Android/Architecture/Jetpack ViewModel.md",
     "Study/Android/Async",
     "Study/Android/Architecture",
     "Study/Android/UI/XML",
