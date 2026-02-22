@@ -98,7 +98,7 @@ if (intent.resolveActivity(packageManager) != null) {
 </manifest>
 ```
 
-#### 해결 방법 2: try-catch
+#### 해결 방법 2: try-catch (권장)
 
 ```kotlin
 try {
