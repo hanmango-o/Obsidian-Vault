@@ -215,6 +215,7 @@
   },
   "active": "f15d67bb6fe7380b",
   "lastOpenFiles": [
+    "Study/Android/UI/Compose/Compose 기초.md",
     "Study/Kotlin/불변과 가변.md",
     "Study/Kotlin/Kotlin의 클래스 종류.md",
     "Study/Java/Class란.md",
@@ -240,7 +241,6 @@
     "Study/Android/Build/Build Variant.md",
     "Study/Android/Build/APK vs AAB.md",
     "Study/Android/Build/Android Build Process.md",
-    "Study/Android/Build/ProGuard.md",
     "Study/Android/Build",
     "Study/Android/Async",
     "Study/Android/Architecture",
