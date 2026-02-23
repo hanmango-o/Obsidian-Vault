@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-17
+modified: 2026-02-24
 topic: Android/UI/XML
 ---
 
@@ -9,6 +9,7 @@ topic: Android/UI/XML
 - onMeasure, onLayout, onDraw 각 단계의 역할과 동작 원리
 - MeasureSpec의 개념과 측정 모드
 - requestLayout vs invalidate 차이
+- ConstraintLayout의 성능 이점과 렌더링 파이프라인과의 관계
 - Canvas save()/restore()의 의미와 활용
 - Paint 객체의 역할과 성능 고려 사항
 - Custom View 구현 시 주의사항
@@ -335,6 +336,47 @@ class CustomButton @JvmOverloads constructor(
 
 ---
 
+## ConstraintLayout과 성능
+
+### 중첩 레이아웃의 성능 문제
+
+View 렌더링 파이프라인(Measure → Layout → Draw)은 **View 트리를 재귀적으로 순회**하며 실행됩니다. 중첩이 깊어지면 순회 횟수가 기하급수적으로 늘어납니다.
+
+```
+<!-- 중첩 레이아웃 - 성능 문제 -->
+LinearLayout (vertical)                    ← onMeasure 1회
+└── LinearLayout (horizontal)              ← onMeasure 1회
+    ├── ImageView                          ← onMeasure 1회
+    └── LinearLayout (vertical)            ← onMeasure 1회
+        ├── TextView                       ← onMeasure 1회
+        └── TextView                       ← onMeasure 1회
+```
+
+특히 `LinearLayout`에 `layout_weight`를 사용하면 **onMeasure가 2회 호출**됩니다. 첫 번째는 자식들의 크기를 측정하고, 두 번째는 weight 비율에 맞게 남은 공간을 재분배하기 위한 것입니다. 중첩된 weight가 있으면 측정 횟수가 지수적으로 증가합니다.
+
+### ConstraintLayout의 장점
+
+ConstraintLayout은 **단일 레벨의 평면 구조**로 복잡한 레이아웃을 표현합니다.
+
+```
+<!-- ConstraintLayout - 평면 구조 -->
+ConstraintLayout                           ← onMeasure 1회
+├── ImageView                              ← onMeasure 1회
+├── TextView                               ← onMeasure 1회
+└── TextView                               ← onMeasure 1회
+```
+
+| 관점 | 중첩 LinearLayout | ConstraintLayout |
+|------|-------------------|------------------|
+| View 트리 깊이 | 깊음 | 얕음 (flat) |
+| onMeasure 호출 횟수 | 중첩 × weight로 급증 | 최소화 |
+| onLayout 순회 비용 | 트리 깊이에 비례 | 한 레벨만 순회 |
+| 오버드로우 | 중첩 배경으로 증가 가능 | 단일 레벨로 최소화 |
+
+즉, ConstraintLayout을 사용하면 View 렌더링 파이프라인의 **Measure/Layout 단계 비용이 크게 줄어듭니다**. 특히 `requestLayout()`이 호출될 때 전체 트리를 재측정/재배치하므로, 트리가 얕을수록 성능 이점이 큽니다.
+
+---
+
 ## Custom View 예제
 
 ```kotlin
@@ -395,6 +437,7 @@ class ProgressCircleView @JvmOverloads constructor(
 - onDraw: Canvas와 Paint로 실제 콘텐츠 렌더링
 - invalidate(): 모양만 변경 시 onDraw 재호출
 - requestLayout(): 크기/위치 변경 시 측정부터 재시작
+- ConstraintLayout: 평면 구조로 Measure/Layout 비용 최소화, 중첩 LinearLayout+weight 대비 측정 횟수 대폭 감소
 - save()/restore(): Canvas 변환 상태 스택 저장/복원, 반드시 쌍으로 호출
 - 성능 주의: onDraw 내 객체 생성 금지, invalidate 최소화, 오버드로우 방지
 

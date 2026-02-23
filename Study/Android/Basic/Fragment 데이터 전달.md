@@ -1,6 +1,6 @@
 ---
 createdAt: 2026-02-17
-modified: 2026-02-17
+modified: 2026-02-24
 topic: Android/Basic
 ---
 
@@ -10,6 +10,8 @@ topic: Android/Basic
 - SharedViewModel을 이용한 데이터 공유
 - Fragment에서 빈 생성자가 필요한 이유
 - Bundle과 arguments를 이용한 안전한 데이터 전달
+- FragmentFactory를 이용한 생성자 주입
+- Fragment Result Listener의 동작 원리와 생명주기 인식
 
 ---
 
@@ -270,6 +272,106 @@ class UserFragment : Fragment() {  // 빈 생성자 존재
 
 ---
 
+## FragmentFactory
+
+FragmentFactory는 Fragment의 인스턴스 생성 과정을 **커스터마이즈**할 수 있게 해주는 클래스입니다. 생성자에 의존성을 주입하면서도 시스템의 재생성을 지원합니다.
+
+### 필요한 이유
+
+빈 생성자 제약 때문에 Fragment 생성자에 의존성을 주입할 수 없습니다. FragmentFactory를 사용하면 이 제약을 우회할 수 있습니다.
+
+```kotlin
+// 생성자에 의존성이 필요한 Fragment
+class UserFragment(
+    private val repository: UserRepository
+) : Fragment() {
+    // ...
+}
+```
+
+### 구현 방법
+
+```kotlin
+// 1. FragmentFactory 정의
+class MyFragmentFactory(
+    private val repository: UserRepository
+) : FragmentFactory() {
+
+    override fun instantiate(classLoader: ClassLoader, className: String): Fragment {
+        return when (loadFragmentClass(classLoader, className)) {
+            UserFragment::class.java -> UserFragment(repository)
+            else -> super.instantiate(classLoader, className)
+        }
+    }
+}
+```
+
+```kotlin
+// 2. Activity에서 FragmentFactory 등록 (super.onCreate 이전에!)
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        supportFragmentManager.fragmentFactory = MyFragmentFactory(repository)
+        super.onCreate(savedInstanceState)  // 이후에 호출해야 재생성 시 Factory 사용
+        // ...
+    }
+}
+```
+
+### 동작 원리
+
+```
+1. Configuration Change 발생
+2. Activity.onCreate()에서 FragmentFactory 등록
+3. super.onCreate() 호출 → 시스템이 Fragment 재생성 시도
+4. 빈 생성자 대신 FragmentFactory.instantiate() 호출
+5. Factory가 의존성과 함께 Fragment 생성
+```
+
+> [[Hilt|Hilt]]를 사용하면 `@AndroidEntryPoint`가 FragmentFactory를 자동으로 설정하므로, 직접 구현할 필요가 없습니다.
+
+---
+
+## Fragment Result Listener의 동작 원리
+
+Fragment Result API는 **생명주기를 인식**합니다. 리스너가 등록된 Fragment가 `STARTED` 상태 이상일 때만 결과를 전달합니다.
+
+### 동작 흐름
+
+```
+1. Fragment A: setFragmentResultListener("key", lifecycleOwner, listener) 등록
+2. Fragment B: setFragmentResult("key", bundle) 호출
+3. FragmentManager가 결과를 보관
+4. Fragment A가 STARTED 상태가 되면 listener 호출
+5. 결과 전달 후 자동으로 결과 제거 (일회성)
+```
+
+### 주요 특성
+
+| 특성 | 설명 |
+|------|------|
+| 생명주기 인식 | STARTED 상태 이상에서만 결과 전달 |
+| 일회성 | 결과는 한 번만 전달되고 제거됨 |
+| 키 기반 | 동일한 requestKey로 매칭 |
+| 리스너 교체 | 같은 키로 새 리스너 등록 시 이전 리스너 교체 |
+| LifecycleOwner | `this`(Fragment) 또는 `viewLifecycleOwner` 전달 가능 |
+
+### 리스너 등록 시점
+
+```kotlin
+// onCreate에서 등록 (권장)
+override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    parentFragmentManager.setFragmentResultListener("key", this) { _, bundle ->
+        // 결과 처리
+    }
+}
+```
+
+`onCreate()`에서 등록하는 이유: Fragment가 재생성되어도 리스너가 다시 등록되고, `onViewCreated()`보다 먼저 호출되므로 결과를 놓치지 않습니다.
+
+---
+
 ## 정리
 
 - Activity → Fragment: arguments(Bundle) 또는 SharedViewModel
@@ -279,6 +381,8 @@ class UserFragment : Fragment() {  // 빈 생성자 존재
 - SharedViewModel: activityViewModels()로 Activity 스코프 ViewModel 공유
 - 빈 생성자 필수: 시스템이 리플렉션으로 재생성하므로, 데이터는 arguments로 전달
 - 팩토리 패턴: companion object의 newInstance()로 안전한 Fragment 생성
+- FragmentFactory: 생성자 주입을 가능하게 하는 커스텀 인스턴스 생성, super.onCreate() 이전에 등록 필수
+- Fragment Result Listener: 생명주기 인식(STARTED 이상), 일회성 결과 전달, onCreate()에서 등록 권장
 
 ---
 

@@ -1,12 +1,13 @@
 ---
 createdAt: 2026-02-10
-modified: 2026-02-10
+modified: 2026-02-24
 topic: Android/Async
 ---
 
 - Handler, Looper, MessageQueue의 개념
 - 세 컴포넌트의 동작 원리와 관계
 - 메인 쓰레드에서의 메시지 루프 구조
+- UI 쓰레드의 모든 작업이 Handler/Looper를 통해 처리되는 원리
 - Handler를 이용한 쓰레드 간 통신 방법
 - HandlerThread의 활용
 - Coroutine과의 비교
@@ -166,6 +167,20 @@ Looper.loop()  ← 무한 루프 시작
 모든 메인 쓰레드 작업이 이 루프를 통해 처리됨
 ```
 
+### UI 쓰레드에서 처리되는 작업들
+
+[[Android Main Thread|UI 쓰레드]]에서 발생하는 거의 모든 작업은 Handler/Looper 메커니즘을 통해 MessageQueue에 Message로 전달됩니다.
+
+| 작업 | 내부 동작 |
+|------|-----------|
+| Activity 생명주기 콜백 | `ActivityThread.H`(Handler)가 `LAUNCH_ACTIVITY`, `PAUSE_ACTIVITY` 등의 Message 처리 |
+| 터치/입력 이벤트 | `InputEventReceiver`가 이벤트를 Message로 변환하여 큐에 추가 |
+| View 렌더링 | `Choreographer`가 VSYNC 신호를 받아 `doFrame()` Message 전송 |
+| `View.post()` | 내부적으로 View가 attach된 Handler에 Runnable 전달 |
+| `runOnUiThread()` | 현재 쓰레드가 메인이면 즉시 실행, 아니면 `Handler.post()` 호출 |
+
+즉, **UI 쓰레드의 본질은 Looper가 돌고 있는 쓰레드**입니다. Looper가 MessageQueue에서 메시지를 하나씩 꺼내 처리하기 때문에, 하나의 Message 처리가 오래 걸리면 다음 메시지(UI 렌더링, 입력 이벤트 등)가 지연되어 [[ANR]]이 발생합니다.
+
 ---
 
 ## Handler vs Coroutine
@@ -189,6 +204,7 @@ Looper.loop()  ← 무한 루프 시작
 - Handler: MessageQueue에 작업 추가 및 전달받은 메시지 처리
 - 동작 흐름: Handler → MessageQueue → Looper → Handler.handleMessage()
 - 메인 쓰레드: ActivityThread.main()에서 자동으로 Looper 시작
+- UI 쓰레드의 본질: Looper가 돌고 있는 쓰레드, 생명주기/입력/렌더링 모두 Message로 처리
 - HandlerThread: Looper 내장 쓰레드, 백그라운드 순차 작업에 활용
 - 현대적 대안: Kotlin Coroutines가 Handler/Looper 역할 대체
 

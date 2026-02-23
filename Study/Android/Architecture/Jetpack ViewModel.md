@@ -1,5 +1,5 @@
 ---
-modified: 2026-02-16
+modified: 2026-02-24
 topic: Android/Architecture
 ---
 
@@ -9,6 +9,8 @@ topic: Android/Architecture
 - ViewModelStore와 ViewModelStoreOwner의 내부 동작 원리
 - Configuration Change에서 ViewModel이 상태를 유지하는 메커니즘
 - LifecycleOwner와 ViewModelStoreOwner의 차이
+- ViewModel Factory를 이용한 생성자 파라미터 전달
+- SavedStateHandle을 이용한 프로세스 종료 후 상태 복원
 - ViewModel에서 Context를 참조하면 안 되는 이유와 AndroidViewModel
 
 ---
@@ -217,6 +219,131 @@ val viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
 ---
 
+## ViewModel Factory
+
+### Factory가 필요한 이유
+
+기본적으로 `ViewModelProvider`는 **인자가 없는 생성자**만 호출할 수 있습니다. ViewModel에 생성자 파라미터를 전달하려면 Factory가 필요합니다.
+
+```kotlin
+// 생성자에 파라미터가 있는 ViewModel
+class UserViewModel(
+    private val userId: String,
+    private val repository: UserRepository
+) : ViewModel() {
+    // ...
+}
+```
+
+### ViewModelProvider.Factory 구현
+
+```kotlin
+class UserViewModelFactory(
+    private val userId: String,
+    private val repository: UserRepository
+) : ViewModelProvider.Factory {
+
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return UserViewModel(userId, repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+}
+```
+
+```kotlin
+// Activity에서 사용
+class UserActivity : AppCompatActivity() {
+    private val viewModel: UserViewModel by viewModels {
+        UserViewModelFactory("user123", UserRepository())
+    }
+}
+```
+
+### CreationExtras 활용 (최신 방식)
+
+```kotlin
+class UserViewModel(
+    private val userId: String
+) : ViewModel() {
+
+    companion object {
+        val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                val userId = this[USER_ID_KEY] as String
+                UserViewModel(userId)
+            }
+        }
+
+        val USER_ID_KEY = object : CreationExtras.Key<String> {}
+    }
+}
+```
+
+> [[Hilt|Hilt]]를 사용하면 `@HiltViewModel`과 `@Inject`로 Factory를 자동 생성하므로, 직접 구현할 필요가 없습니다.
+
+---
+
+## SavedStateHandle
+
+### 개념
+
+`SavedStateHandle`은 ViewModel 내에서 **프로세스 종료 후에도 상태를 복원**할 수 있게 해주는 키-값 저장소입니다. `onSaveInstanceState()`의 Bundle과 유사하지만, ViewModel 내부에서 사용할 수 있습니다.
+
+### ViewModel vs SavedStateHandle
+
+| 상황 | ViewModel | SavedStateHandle |
+|------|-----------|-----------------|
+| Configuration Change | 유지 | 유지 |
+| 프로세스 종료 후 복원 | **소실** | **복원** |
+| 저장 위치 | 메모리 | Bundle (직렬화) |
+
+### 사용법
+
+```kotlin
+class SearchViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
+
+    // 프로세스 종료 후에도 복원되는 상태
+    val searchQuery: StateFlow<String> =
+        savedStateHandle.getStateFlow("query", "")
+
+    fun setQuery(query: String) {
+        savedStateHandle["query"] = query
+    }
+
+    // LiveData로도 사용 가능
+    val filterType: MutableLiveData<String> =
+        savedStateHandle.getLiveData("filter", "all")
+}
+```
+
+### Hilt와 함께 사용
+
+```kotlin
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
+    private val repository: SearchRepository
+) : ViewModel() {
+
+    val query = savedStateHandle.getStateFlow("query", "")
+}
+```
+
+Hilt는 `SavedStateHandle`을 자동으로 주입합니다.
+
+### 저장 가능한 데이터
+
+- Bundle에 저장 가능한 모든 타입 (기본형, String, Parcelable 등)
+- 크기 제한: `onSaveInstanceState()`와 동일 (50KB 미만 권장)
+- 용도: 검색어, 스크롤 위치, 선택된 탭 등 소량의 UI 상태
+
+---
+
 ## ViewModel에서 Context를 참조하면 안 되는 이유
 
 ViewModel은 Configuration Change에서도 유지되지만, Activity는 소멸되고 재생성됩니다. ViewModel이 Activity Context를 참조하면 소멸된 Activity를 계속 참조하게 되어 **메모리 누수**가 발생합니다.
@@ -284,6 +411,8 @@ class MyViewModel @Inject constructor(
 - ViewModelStoreOwner: ViewModelStore를 소유하는 인터페이스 (Activity, Fragment)
 - 상태 유지 메커니즘: `isChangingConfigurations()` 체크로 Configuration Change 시 ViewModelStore 보존
 - LifecycleOwner: 생명주기 상태 제공, 생명주기에 따른 동작 관리
+- ViewModel Factory: 생성자에 파라미터가 있을 때 필요, ViewModelProvider.Factory 구현 또는 Hilt @HiltViewModel
+- SavedStateHandle: 프로세스 종료 후에도 상태 복원 가능, Bundle 기반 키-값 저장소, getStateFlow()/getLiveData()
 - Context 참조 금지: Activity Context → 메모리 누수, AndroidViewModel 또는 Hilt 사용 권장
 - by viewModels(): Kotlin 위임을 통한 ViewModel 생성, Fragment에서 activityViewModels()로 공유
 
