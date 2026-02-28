@@ -1,10 +1,18 @@
 ---
-cssclasses:
-  - cornell-left
-  - cornell-livepreview
+createdAt: 2026-02-28
+modified: 2026-02-28
+topic: Kotlin
 ---
 
-## 1. while 루프
+- while과 do-while 루프의 사용법
+- 범위(Range)와 수열(Progression)의 개념
+- for 루프에서의 범위 표현 방법
+- map과 컬렉션의 이터레이션
+- in 연산자를 활용한 범위 검사
+
+---
+
+## while 루프
 
 Kotlin의 `while` 루프는 Java와 동일하며, `while`과 `do-while`이 있습니다. 문법은 Java와 똑같습니다.
 
@@ -20,9 +28,11 @@ do {
 } while (condition)
 ```
 
-## 2. 범위와 수열
+---
 
-### 2-1. 범위(Range)의 개념
+## 범위와 수열
+
+### 범위(Range)의 개념
 
 Kotlin에는 Java의 `for` 루프(예: `for(int i = 0; i < 10; i++)`)에 해당하는 요소가 없습니다. 초깃값, 증가값, 최종값을 사용한 루프를 대신하기 위해 **범위(range)**를 사용합니다.
 
@@ -30,7 +40,7 @@ Kotlin에는 Java의 `for` 루프(예: `for(int i = 0; i < 10; i++)`)에 해당�
 - Kotlin의 범위는 **폐구간**(closed range) 또는 양끝을 포함하는 구간입니다
 - 어떤 범위에 속한 값을 일정한 순서로 이터레이션하는 경우를 **수열(progression)**이라고 합니다
 
-### 2-2. 범위 표현 방법
+### 범위 표현 방법
 
 | 표현식 | 의미 | 범위 타입 | 예시 | 결과 |
 |--------|------|-----------|------|------|
@@ -63,9 +73,11 @@ for (i in 10 downTo 1) {
 
 **참고**: `..` 연산자는 항상 범위의 끝 값(우항)을 포함합니다. 끝 값을 포함하지 않는 반만 닫힌 범위(half-closed range, 반폐구간 또는 반개구간)는 `until`을 사용하여 표현할 수 있습니다.
 
-## 3. map에 대한 이터레이션
+---
 
-### 3-1. map 이터레이션 기본
+## map에 대한 이터레이션
+
+### map 이터레이션 기본
 
 map에 대한 이터레이션도 가능합니다.
 
@@ -90,9 +102,9 @@ for((letter, binary) in binaryReps) {
 3. map에 문자를 키로, 이진수 문자열을 값으로 저장합니다
 4. map을 순회하면서 `(letter, binary)`로 구조 분해하여 키와 값을 출력합니다
 
-### 3-2. 컬렉션의 인덱스와 함께 이터레이션
+### 컬렉션의 인덱스와 함께 이터레이션
 
-map에 사용했던 구조 분해 구문을 map이 아닌 컬렉션에도 활용할 수 있습니다. 원소의 현재 인덱스를 유지하면서 컬렉션을 이터레이션할 수 있습니다.
+map에 사용했던 구조 분해 구문을 map이 아닌 [[컬렉션과 배열|컬렉션]]에도 활용할 수 있습니다. 원소의 현재 인덱스를 유지하면서 컬렉션을 이터레이션할 수 있습니다.
 
 ```kotlin
 val list = arrayListOf("10", "11", "1001")
@@ -107,9 +119,11 @@ for((index, element) in list.withIndex()) {
 
 `withIndex()`를 통해 인덱스와 원소를 함께 이터레이션할 수 있습니다.
 
-## 4. in으로 컬렉션이나 범위의 원소 검사
+---
 
-### 4-1. in 연산자를 사용한 범위 검사
+## in으로 컬렉션이나 범위의 원소 검사
+
+### in 연산자를 사용한 범위 검사
 
 `in` 연산자를 통해 어떤 값이 범위에 속하는지 검사할 수 있습니다. 반대로 `!in`을 통해 어떤 값이 범위에 속하지 않는지 검사할 수 있습니다.
 
@@ -120,9 +134,9 @@ fun isNotDigit(c: Char) = c !in '0'..'9'
 
 `in` 연산자는 내부적으로 `'a' <= c && c <= 'z'`의 형태로 변환됩니다.
 
-### 4-2. when 식에서의 in 연산자
+### when 식에서의 in 연산자
 
-`when` 식에서도 `in` 연산자를 사용할 수 있습니다.
+[[enum과 when|when]] 식에서도 `in` 연산자를 사용할 수 있습니다.
 
 ```kotlin
 fun recognize(c: Char) = when(c) {
@@ -132,7 +146,7 @@ fun recognize(c: Char) = when(c) {
 }
 ```
 
-### 4-3. 다양한 타입에서의 in 사용
+### 다양한 타입에서의 in 사용
 
 | 사용 대상 | 조건 | 예시 |
 |----------|------|------|
@@ -149,7 +163,17 @@ println("Kotlin" in setOf("Java", "Kotlin"))  // true
 println("Scala" in setOf("Java", "Kotlin"))   // false
 ```
 
-> [!cue] Sample of a Summary
+---
 
-> [!summary] Title for summary
+## 정리
+
+- while/do-while: Java와 동일한 문법
+- 범위(Range): `..`(폐구간), `until`(반폐구간), `downTo`(역순), `step`(증가값)
+- for 루프: 범위, 컬렉션, map 이터레이션 지원, 구조 분해로 키-값/인덱스-원소 추출
+- `withIndex()`: 인덱스와 원소를 함께 이터레이션
+- in 연산자: 범위/컬렉션 포함 여부 검사, when 식에서도 사용 가능
+
+---
+
+## QnA
 

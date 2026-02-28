@@ -1,14 +1,22 @@
 ---
-cssclasses:
-  - cornell-left
-  - cornell-livepreview
+createdAt: 2026-02-28
+modified: 2026-02-28
+topic: Kotlin
 ---
 
-## 1. Kotlin의 주요 특성
+- Kotlin의 주요 특성과 설계 철학
+- 정적 타입 지정 언어로서의 장점
+- Nullable 타입과 함수 타입 지원
+- 함수형 프로그래밍과 객체 지향 프로그래밍의 조합
+- Kotlin 코드의 컴파일 과정
+
+---
+
+## Kotlin의 주요 특성
 
 Kotlin은 간결하고 실용적이며, Java 코드와의 상호 운용성(interoperability)을 중시합니다. Java가 사용 중인 곳이라면 Kotlin을 사용할 수 있습니다.
 
-### 1-1. 정적 타입 지정 언어
+### 정적 타입 지정 언어
 
 Java와 마찬가지로 Kotlin은 **정적 타입(statically typed)** 지정 언어입니다.
 
@@ -44,9 +52,9 @@ val x = 1        // Int 타입으로 자동 추론
 val name = "Kotlin"  // String 타입으로 자동 추론
 ```
 
-### 1-2. Nullable 타입 지원
+### Nullable 타입 지원
 
-Kotlin은 **Nullable 타입**을 지원합니다.
+Kotlin은 [[Null 안전성|Nullable 타입]]을 지원합니다.
 
 - 컴파일 시점에 NPE(NullPointerException)가 발생할 수 있는 지점을 검사할 수 있습니다
 - 이를 통해 프로그램의 신뢰성이 높아집니다
@@ -56,35 +64,37 @@ val nonNull: String = "Hello"      // null 불가
 val nullable: String? = null       // null 가능
 ```
 
-### 1-3. 함수 타입 지원
+### 함수 타입 지원
 
 Kotlin은 **함수 타입(function type)**을 지원합니다. 이를 통해 함수형 프로그래밍(functional programming)을 지원하는 언어입니다.
 
-## 2. 함수형 프로그래밍과 객체 지향 프로그래밍
+---
 
-### 2-1. 함수형 프로그래밍의 핵심 개념
+## 함수형 프로그래밍과 객체 지향 프로그래밍
 
-| 개념                                     | 설명                                                                                   | 예시                                |
-| -------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------- |
-| **일급 시민 함수**<br>(First-class Function) | 함수를 일반 값처럼 다룰 수 있음<br>• 변수에 저장 가능<br>• 인자로 전달 가능<br>• 반환값으로 사용 가능                    | `val func = { x: Int -> x * 2 }`  |
-| **불변성**<br>(Immutability)              | 일단 만들어지면 내부 상태가 절대로 바뀌지 않는 불변 객체를 사용                                                 | `val list = listOf(1, 2, 3)`      |
-| **순수 함수**<br>(Pure Function)           | 부수 효과(side effect) 없음<br>• 입력이 같으면 항상 같은 출력<br>• 다른 객체의 상태 변경 없음<br>• 외부 환경과 상호작용 없음 | `fun add(a: Int, b: Int) = a + b` |
+### 함수형 프로그래밍의 핵심 개념
 
-### 2-2. 함수형 프로그래밍의 장점
+| 개념 | 설명 | 예시 |
+|------|------|------|
+| **일급 시민 함수** (First-class Function) | 함수를 일반 값처럼 다룰 수 있음. 변수에 저장, 인자로 전달, 반환값으로 사용 가능 | `val func = { x: Int -> x * 2 }` |
+| **불변성** (Immutability) | 일단 만들어지면 내부 상태가 절대로 바뀌지 않는 [[불변과 가변|불변 객체]]를 사용 | `val list = listOf(1, 2, 3)` |
+| **순수 함수** (Pure Function) | 부수 효과(side effect) 없음. 입력이 같으면 항상 같은 출력 | `fun add(a: Int, b: Int) = a + b` |
+
+### 함수형 프로그래밍의 장점
 
 - **간결성**: 함수형 코드는 더 간결하고 우아합니다
 - **다중 스레드 안전성(Safe Multithreading)**: 불변 데이터 구조를 사용하고 순수 함수를 적용하면 같은 데이터를 여러 스레드가 변경할 수 없으므로 복잡한 동기화가 필요 없습니다
 
-## 3. Kotlin 코드 컴파일
+---
+
+## Kotlin 코드 컴파일
 
 Kotlin은 `.kt` 확장자를 파일에 붙입니다.
 
 - Kotlin 컴파일러는 Kotlin 소스코드를 분석해서 `.class` 파일을 만들어냅니다
 - 만들어진 `.class` 파일은 개발 중인 애플리케이션의 유형에 맞는 표준 패키징 과정을 거쳐 실행됩니다
 
-### 3-1. Kotlin 빌드 과정
-
-Kotlin의 빌드 과정은 아래와 같습니다.
+### Kotlin 빌드 과정
 
 ```mermaid
 graph TD
@@ -95,7 +105,7 @@ graph TD
     E --> F[.jar 패키징]
     G[Kotlin 런타임 라이브러리] --> H[애플리케이션]
     F --> H
-    
+
     style A fill:#7F52FF
     style C fill:#f96
     style G fill:#7F52FF
@@ -112,7 +122,18 @@ Kotlin 컴파일러로 컴파일한 코드(`.class`)는 **Kotlin 런타임 라�
 
 **중요**: Kotlin으로 컴파일한 애플리케이션을 배포할 때에는 런타임 라이브러리도 함께 배포해야 합니다.
 
-> [!cue] Sample of a Summary
+---
 
-> [!summary] Title for summary
+## 정리
+
+- Kotlin: 간결하고 실용적인 정적 타입 지정 언어, Java와 100% 상호 운용
+- 정적 타입의 장점: 성능, 신뢰성, 유지보수성, 도구 지원
+- 타입 추론: 컴파일러가 문맥에서 타입을 자동 유추, 명시적 타입 선언 생략 가능
+- Nullable 타입: 컴파일 시점 NPE 방지
+- 함수형 프로그래밍: 일급 시민 함수, 불변성, 순수 함수 지원
+- 빌드 과정: .kt → Kotlin 컴파일러 → .class → .jar + Kotlin 런타임 라이브러리
+
+---
+
+## QnA
 
