@@ -11,26 +11,17 @@
             "id": "7b8f6a8d2f91e7df",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {},
-              "icon": "lucide-git-fork",
-              "title": "그래프 뷰"
-            }
-          },
-          {
-            "id": "f15d67bb6fe7380b",
-            "type": "leaf",
-            "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.11.7"
+                "file": "Study/Android/Basic/Fragment 생명주기.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "릴리즈 노트 1.11.7"
+              "icon": "lucide-file",
+              "title": "Fragment 생명주기"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -213,8 +204,16 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "f15d67bb6fe7380b",
+  "active": "7b8f6a8d2f91e7df",
   "lastOpenFiles": [
+    "Study/Kotlin/Null 안전성.md",
+    "Study/Kotlin/문자열과 정규식.md",
+    "Study/Kotlin/컬렉션과 배열.md",
+    "Study/Kotlin/원시 타입.md",
+    "Study/Android/Basic/Android 4대 컴포넌트.md",
+    "Study/Android/Basic/Activity Lifecycle.md",
+    "Study/Android/Basic/Activity 데이터 전달.md",
+    "Study/Android/Build/Android Build Process.md",
     "Study/Android/UI/Compose/Compose 기초.md",
     "Study/Kotlin/불변과 가변.md",
     "Study/Kotlin/Kotlin의 클래스 종류.md",
@@ -228,19 +227,11 @@
     "Study/Android/Architecture/LifecycleOwner와 LifecycleObserver.md",
     "Study/Android/Basic/Fragment 데이터 전달.md",
     "Study/Android/UI/XML/터치 이벤트 처리.md",
-    "Study/Android/Basic/Activity 데이터 전달.md",
     "Study/Android/Build/AndroidManifest.md",
     "Study/Android/Async/Kotlin Coroutines.md",
     "Study/Android/Async/Flow.collect & Flow.collectLatest.md",
     "Study/Android/Architecture/MVVM vs MVI.md",
     "Study/Android/Architecture/Dependency Injection.md",
-    "Study/Android/Async/ANR.md",
-    "Study/Android/Basic/Task와 BackStack.md",
-    "Study/Android/Basic/Activity Result API.md",
-    "Study/Android/Build/Dalvik VM.md",
-    "Study/Android/Build/Build Variant.md",
-    "Study/Android/Build/APK vs AAB.md",
-    "Study/Android/Build/Android Build Process.md",
     "Study/Android/Build",
     "Study/Android/Async",
     "Study/Android/Architecture",
